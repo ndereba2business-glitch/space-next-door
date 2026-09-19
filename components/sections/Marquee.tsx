@@ -8,10 +8,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 const ITEMS = [
   'Lounge & Nightclub🥂',
-  'Luxury spa & Wellness💆',
-  'Coffee Shop☕',
-  'Cream Parlor🍦',
-  'Car Wash🚗',
+  'Sports Watch Parties🏅',
+  'Food delivery🚚',
 ]
 
 const DIAMOND = (

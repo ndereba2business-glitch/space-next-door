@@ -114,13 +114,13 @@ export default function Hero() {
             /public/hero/space-next-door-hero.png (exterior or interior
             night shot recommended) and it replaces this automatically. */}
         <img
-          src="/hero/space-next-door-hero.jpeg"
+          src="/hero/space-next-door-hero.png"
           alt="Space Next Door exterior at night"
           style={{
-            width: '50%',
-            height: '50%',
+            width: '100%',
+            height: '100%',
             objectFit: 'cover',
-            objectPosition: 'center 25%',
+            objectPosition: 'center 50%',
             display: 'block',
           }}
           onError={(e) => {
