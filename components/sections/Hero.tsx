@@ -117,8 +117,8 @@ export default function Hero() {
           src="/hero/space-next-door-hero.jpeg"
           alt="Space Next Door exterior at night"
           style={{
-            width: '100%',
-            height: '100%',
+            width: '50%',
+            height: '50%',
             objectFit: 'cover',
             objectPosition: 'center 25%',
             display: 'block',
