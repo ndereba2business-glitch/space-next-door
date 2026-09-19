@@ -114,7 +114,7 @@ export default function Hero() {
             /public/hero/space-next-door-hero.png (exterior or interior
             night shot recommended) and it replaces this automatically. */}
         <img
-          src="/hero/space-next-door-hero.png"
+          src="/hero/space-next-door-hero.jpeg"
           alt="Space Next Door exterior at night"
           style={{
             width: '100%',
