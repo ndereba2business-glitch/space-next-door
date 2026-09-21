@@ -1,17 +1,11 @@
 // data/menu.ts
 //
-// PLACEHOLDER MENU — Space Next Door demo (space-next-door-demo branch).
-// No real menu, dish names, or prices could be publicly verified for this
-// venue, so every item below is a clearly-labeled placeholder rather than
-// an invented dish. Replace with the client's real menu (names, descriptions,
-// prices, photos) before this demo goes live. Category keys are unchanged
-// from the original site (see types/menu.ts) to avoid touching MenuFilter/
-// MenuCard component logic; only their display labels are re-themed for a
-// sports bar & grill.
-//
-// Swap the `image` paths for real photography once it's shot — everything
-// else (cards, filters, badges) reads from here, nothing is hardcoded in
-// the components.
+// Menu content for Space Next Door / Black Perch. Real dish photography
+// lives in /public/images/menu; every item below points at one of those
+// files. Copy, prices (KES), badges, dietary tags and pairings are not yet
+// client-confirmed — see the note above MENU_ITEMS for provenance — so
+// double-check everything here against the client's actual menu before
+// this goes live.
 
 import type {
   DietaryTag,
@@ -52,42 +46,54 @@ export const DIETARY_TAG_META: Record<DietaryTag, { label: string; icon: string 
   spicy: { label: 'Hot / Spicy', icon: '🌶' },
 }
 
-// Dish titles come straight from the photography filenames dropped into
-// public/images/menu — that's the client's real menu naming, so it's used
-// as-is rather than invented. `description`, `rating` and `price` are still
-// unconfirmed, so they stay clearly-labeled placeholders (price "TBC")
-// until the client supplies copy and pricing.
+// Descriptions, prices (KES), badges, dietary tags and pairings below are
+// restored from this repo's own history (see space-next-door-demo-phase-a.patch)
+// — an earlier commit had this same copy before it was stripped to
+// placeholders pending client verification. Two exceptions carry fresh,
+// still-unverified copy: `creamy-truffle-pasta` has no prior history at all,
+// and `black-perch-old-fashioned` was historically written up as a bourbon
+// cocktail, but its actual photo is a chargrilled mixed-grill sharing
+// platter — so it's re-titled/re-described to match the photo and moved to
+// Mains. None of this has been confirmed with the client — verify before
+// this goes live.
 export const MENU_ITEMS: MenuItem[] = [
   // ── Bar Bites & Starters ───────────────────────────────────────
-  {
-    id: 'artisan-french-toast-flight',
-    title: 'Artisan French Toast Flight',
-    category: 'breakfast',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/artisan-french-toast-flight.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
   {
     id: 'golden-croissant-benedict',
     title: 'Golden Croissant Benedict',
     category: 'breakfast',
-    description: '[Add real description once the menu is confirmed]',
+    description:
+      'Butter-laminated croissant, slow-poached egg, hollandaise, smoked salmon ribbons.',
     image: '/images/menu/golden-croissant-benedict.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
+    badge: 'chefs-selection',
+    dietaryTags: ['dairy'],
+    pairing: 'Fresh Orange Press',
+    rating: 4.8,
+    price: 950,
   },
   {
     id: 'truffle-avocado-toast',
     title: 'Truffle Avocado Toast',
     category: 'breakfast',
-    description: '[Add real description once the menu is confirmed]',
+    description:
+      'Charred sourdough, whipped avocado, black truffle oil, chili flake, microgreens.',
     image: '/images/menu/truffle-avocado-toast.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
+    badge: 'house-favourite',
+    dietaryTags: ['vegetarian'],
+    rating: 4.7,
+    price: 850,
+  },
+  {
+    id: 'artisan-french-toast-flight',
+    title: 'Artisan French Toast Stack',
+    category: 'breakfast',
+    description:
+      'Golden French toast stacked with crispy smoked bacon, whipped mascarpone and fresh chives.',
+    image: '/images/menu/artisan-french-toast-flight.png',
+    badge: 'signature-dish',
+    dietaryTags: ['dairy'],
+    rating: 4.9,
+    price: 900,
   },
 
   // ── Grill & Mains ────────────────────────────────────────────
@@ -95,104 +101,124 @@ export const MENU_ITEMS: MenuItem[] = [
     id: 'creamy-garlic-chicken',
     title: 'Creamy Garlic Chicken',
     category: 'mains',
-    description: '[Add real description once the menu is confirmed]',
+    description:
+      'Pan-fried artisan chicken with garlic butter cream, fresh coriander, walnuts.',
     image: '/images/menu/creamy-garlic-chicken.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
+    badge: 'chefs-selection',
+    dietaryTags: ['dairy', 'contains-nuts'],
+    pairing: 'Chardonnay',
+    rating: 4.9,
+    price: 1200,
   },
   {
     id: 'creamy-truffle-pasta',
     title: 'Creamy Truffle Pasta',
     category: 'mains',
-    description: '[Add real description once the menu is confirmed]',
+    description:
+      'Hand-tossed linguine in a silky parmesan cream, finished with shaved black truffle and cracked pepper.',
     image: '/images/menu/creamy-truffle-pasta.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
+    badge: 'house-favourite',
+    dietaryTags: ['vegetarian', 'dairy'],
+    pairing: 'Chardonnay',
+    rating: 4.7,
+    price: 1300,
   },
   {
     id: 'slow-braised-lamb-shank',
     title: 'Slow-Braised Lamb Shank',
     category: 'mains',
-    description: '[Add real description once the menu is confirmed]',
+    description:
+      'Twelve-hour braise, red wine jus, root vegetable purée, rosemary oil.',
     image: '/images/menu/slow-braised-lamb-shank.jpeg',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
+    badge: 'premium-cut',
+    dietaryTags: ['gluten-free'],
+    pairing: 'Malbec',
+    rating: 4.8,
+    price: 1800,
   },
   {
     id: 'pan-seared-nile-perch',
     title: 'Pan-Seared Nile Perch',
     category: 'mains',
-    description: '[Add real description once the menu is confirmed]',
+    description:
+      'Crisp-skin perch, brown butter, capers, charred lemon, seasonal greens.',
     image: '/images/menu/pan-seared-nile-perch.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
+    badge: 'house-favourite',
+    dietaryTags: ['gluten-free', 'dairy'],
+    pairing: 'Sauvignon Blanc',
+    rating: 4.7,
+    price: 1450,
   },
   {
     id: 'ugali-and-fish',
-    title: 'Ugali & Fish',
+    title: 'Ugali and Fish',
     category: 'mains',
-    description: '[Add real description once the menu is confirmed]',
+    description: 'Well cooked maize flour with a side of vegetables and fish.',
     image: '/images/menu/ugali-and-fish.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
+    badge: 'chefs-selection',
+    dietaryTags: ['gluten-free'],
+    rating: 4.8,
+    price: 800,
+  },
+  {
+    id: 'black-perch-old-fashioned',
+    title: 'Signature Mixed Grill Platter',
+    category: 'mains',
+    description:
+      'A sharing platter of chargrilled meat skewers, spiced potatoes, coconut rice, kachumbari and pili pili sauce.',
+    image: '/images/menu/black-perch-old-fashioned.png',
+    badge: 'signature-dish',
+    pairing: 'Craft Lager',
+    rating: 4.8,
+    price: 3200,
   },
 
   // ── Pizzas & Burgers ─────────────────────────────────────────
   {
-    id: 'smoked-bbq-pulled-pork-pizza',
-    title: 'Smoked BBQ Pulled Pork Pizza',
-    category: 'pizzas-burgers',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/smoked-bbq-pulled-pork-pizza.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-  {
     id: 'wagyu-smash-burger',
     title: 'Wagyu Smash Burger',
     category: 'pizzas-burgers',
-    description: '[Add real description once the menu is confirmed]',
+    description:
+      'Double-smashed wagyu, aged cheddar, caramelized onion, truffle aioli, brioche bun.',
     image: '/images/menu/wagyu-smash-burger.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
+    badge: 'signature-dish',
+    dietaryTags: ['dairy'],
+    rating: 4.9,
+    price: 1350,
+  },
+  {
+    id: 'smoked-bbq-pulled-pork-pizza',
+    title: 'Smoked BBQ Pulled Pork Pizza',
+    category: 'pizzas-burgers',
+    description:
+      'Twelve-hour smoked pork, house BBQ glaze, pickled red onion, smoked mozzarella.',
+    image: '/images/menu/smoked-bbq-pulled-pork-pizza.png',
+    badge: 'house-favourite',
+    dietaryTags: ['spicy', 'dairy'],
+    rating: 4.6,
+    price: 1250,
   },
 
   // ── Cocktails & Spirits ──────────────────────────────────────
   {
-    id: 'black-perch-old-fashioned',
-    title: 'Black Perch Old Fashioned',
-    category: 'cocktails',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/black-perch-old-fashioned.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-  {
     id: 'golden-hour-spritz',
     title: 'Golden Hour Spritz',
     category: 'cocktails',
-    description: '[Add real description once the menu is confirmed]',
+    description:
+      'Frozen strawberry & passion fruit spritz layered over a citrus base, finished with fresh strawberry and mint.',
     image: '/images/menu/golden-hour-spritz.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
+    badge: 'house-favourite',
+    rating: 4.7,
+    price: 850,
   },
   {
     id: 'smoked-whiskey-sour',
     title: 'Smoked Whiskey Sour',
     category: 'cocktails',
-    description: '[Add real description once the menu is confirmed]',
+    description:
+      'Rye whiskey, fresh lemon, egg white foam, applewood smoke finish.',
     image: '/images/menu/smoked-whiskey-sour.jpeg',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
+    rating: 4.8,
+    price: 1050,
   },
 ]
