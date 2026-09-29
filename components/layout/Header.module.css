@@ -1,0 +1,268 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  transition:
+    transform 0.6s var(--ease-out),
+    background-color 0.5s ease,
+    border-color 0.5s ease;
+  border-bottom: 1px solid transparent;
+}
+
+/* Soft top scrim so the logo reads over any photo before scrolling */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -40px 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(11, 8, 9, 0.7), transparent);
+  transition: opacity 0.5s ease;
+}
+
+.solid {
+  background: rgba(11, 8, 9, 0.82);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom-color: var(--line);
+}
+.solid::before {
+  opacity: 0;
+}
+
+.hidden {
+  transform: translateY(-100%);
+}
+
+/* backdrop-filter would make the header the containing block for the
+   fixed overlay, so it's dropped while the menu is open. */
+.open {
+  background: var(--ink);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.bar {
+  position: relative;
+  z-index: 2;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.logo {
+  display: block;
+  width: 84px;
+  flex-shrink: 0;
+  margin-right: auto;
+}
+.logo img {
+  width: 100%;
+  height: auto;
+}
+
+/* ── Desktop nav ── */
+.nav {
+  display: none;
+}
+.nav ul {
+  display: flex;
+  gap: clamp(20px, 2.6vw, 40px);
+}
+.navLink {
+  position: relative;
+  display: inline-block;
+  padding-block: 10px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  transition: color 0.3s ease;
+}
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  background: var(--red-hot);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out);
+}
+.navLink:hover,
+.navLink[aria-current='true'] {
+  color: var(--paper);
+}
+.navLink:hover::after,
+.navLink[aria-current='true']::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reserve {
+  min-height: 44px;
+  padding: 0 22px;
+}
+
+/* ── Menu toggle ── */
+.toggle {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  transition: border-color 0.3s ease;
+}
+.toggle:hover {
+  border-color: var(--paper);
+}
+.toggleLines,
+.toggleLines::before,
+.toggleLines::after {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--paper);
+  transition:
+    transform 0.45s var(--ease-out),
+    opacity 0.3s ease;
+}
+.toggleLines {
+  position: relative;
+  background: transparent;
+}
+.toggleLines::before,
+.toggleLines::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+.toggleLines::before {
+  transform: translateY(-4px);
+}
+.toggleLines::after {
+  transform: translateY(4px);
+}
+.open .toggleLines::before {
+  transform: rotate(45deg);
+}
+.open .toggleLines::after {
+  transform: rotate(-45deg);
+}
+
+/* ── Mobile overlay ── */
+.panel {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  padding-top: calc(var(--header-h) + 16px);
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(120% 60% at 100% 0%, rgba(217, 31, 38, 0.22), transparent 60%),
+    var(--ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.45s var(--ease-out),
+    visibility 0s linear 0.45s;
+}
+.panel[data-open='true'] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.45s var(--ease-out);
+}
+
+.panelList a {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding-block: 6px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.75rem, 13vw, 4.5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  transform: translateY(24px);
+  opacity: 0;
+  transition:
+    transform 0.7s var(--ease-out),
+    opacity 0.7s var(--ease-out),
+    color 0.3s ease;
+  transition-delay: calc(0.06s * var(--i) + 0.05s);
+}
+.panel[data-open='true'] .panelList a {
+  transform: none;
+  opacity: 1;
+}
+.panelList a:hover {
+  color: var(--red-hot);
+}
+.panelNum {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--red-hot);
+}
+
+.panelFoot {
+  display: grid;
+  gap: 12px;
+  padding-top: 32px;
+}
+.panelMeta {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: var(--paper-dim);
+}
+.panelSocial {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.panelSocial > a:not(:global(.link)) {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+}
+.panelSocial :global(.link) {
+  margin-left: auto;
+}
+
+@media (max-width: 419px) {
+  .reserve {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    width: 96px;
+    margin-right: 0;
+  }
+  .nav {
+    display: block;
+    margin-inline: auto;
+  }
+  .toggle,
+  .panel {
+    display: none;
+  }
+}
