@@ -1,20 +1,23 @@
-﻿import Hero from '@/components/sections/Hero'
-import Marquee from '@/components/sections/Marquee'
-import FeaturedMenu from '@/components/sections/FeaturedMenu'
-import About from '@/components/sections/About'
-import Contact from '@/components/sections/Contact'
+import Hero from '@/components/sections/Hero'
+import Intro from '@/components/sections/Intro'
 import Experience from '@/components/sections/Experience'
-
+import Nights from '@/components/sections/Nights'
+import Menu from '@/components/sections/Menu'
+import Gallery from '@/components/sections/Gallery'
+import Visit from '@/components/sections/Visit'
+import ClosingCta from '@/components/sections/ClosingCta'
 
 export default function Home() {
   return (
-    <main style={{ background: '#080808' }}>
+    <main id="main" tabIndex={-1}>
       <Hero />
-      <Marquee />
-      <FeaturedMenu />
+      <Intro />
       <Experience />
-      <About />
-      <Contact />
+      <Nights />
+      <Menu />
+      <Gallery />
+      <Visit />
+      <ClosingCta />
     </main>
   )
 }
