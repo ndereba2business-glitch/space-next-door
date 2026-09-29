@@ -70,7 +70,28 @@
   background: var(--ink-raise);
   border: 1px solid var(--line);
 }
+.mapFallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  color: var(--paper-dim);
+  background:
+    radial-gradient(60% 60% at 50% 50%, rgba(217, 31, 38, 0.16), transparent 70%),
+    var(--ink-raise);
+}
+.mapFallback svg {
+  color: var(--red-hot);
+}
+.mapFallback :global(.link) {
+  color: var(--paper);
+}
 .map iframe {
+  z-index: 1;
   position: absolute;
   inset: 0;
   width: 100%;

@@ -81,6 +81,16 @@ export default function Visit() {
 
         <div className={styles.side}>
           <div className={styles.map} data-reveal="up">
+            {/* Shown until the map paints over it, or if the embed is blocked */}
+            <div className={styles.mapFallback}>
+              <IconMapPin width={28} height={28} />
+              <p>
+                {SITE.address.line1}, {SITE.address.city}
+              </p>
+              <a href={LINKS.directions} target="_blank" rel="noopener noreferrer" className="link">
+                Open in Google Maps <IconArrowUpRight />
+              </a>
+            </div>
             <iframe
               src={LINKS.mapEmbed}
               title={`Map showing ${SITE.name}, ${SITE.address.city}`}
