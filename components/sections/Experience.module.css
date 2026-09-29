@@ -1,0 +1,81 @@
+.section {
+  background: linear-gradient(to bottom, var(--ink), var(--ink-raise) 40%, var(--ink));
+}
+
+.top {
+  display: grid;
+  gap: 28px;
+  margin-bottom: clamp(56px, 8vw, 112px);
+}
+
+.grid {
+  display: grid;
+  gap: 64px;
+}
+
+.item {
+  display: grid;
+  gap: 24px;
+  align-content: start;
+}
+
+.frame {
+  aspect-ratio: 4 / 5;
+}
+.frame img {
+  transition:
+    transform 1.2s var(--ease-out),
+    filter 0.8s ease;
+}
+
+.text {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  max-width: 30em;
+}
+
+.kicker {
+  display: flex;
+  gap: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+}
+.kicker span {
+  color: var(--red-hot);
+}
+
+.cta {
+  justify-self: start;
+  margin-top: 4px;
+  color: var(--red-hot);
+}
+
+@media (hover: hover) {
+  .item:hover .frame img {
+    transform: scale(1.04);
+    filter: saturate(1.1);
+  }
+}
+
+@media (min-width: 768px) {
+  .top {
+    grid-template-columns: 1fr minmax(0, 22em);
+    align-items: end;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: clamp(32px, 6vw, 96px);
+    row-gap: clamp(72px, 9vw, 140px);
+  }
+  /* Offset the right column for an editorial stagger */
+  .item:nth-child(even) {
+    margin-top: clamp(80px, 14vw, 220px);
+  }
+  .item:nth-child(3) {
+    margin-top: clamp(-160px, -8vw, -60px);
+  }
+}

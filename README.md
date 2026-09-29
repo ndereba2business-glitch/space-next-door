@@ -1,81 +1,81 @@
-# Space Next Door (Sales Demo)
+# Space Next Door — website concept
 
-> Branch: `space-next-door-demo` — forked from the Black Perch codebase. The original Black Perch project (`main` branch) is untouched.
+A single-page website for **Space Next Door**, the sports bar, grill and
+nightlife venue in the former Tuskys Building on the Nakuru–Nairobi Highway,
+Kenya. Built by Forge Eleven as a client concept.
 
-A premium sports bar, grill & nightclub website demo for **Space Next Door**, Nakuru, Kenya — built for a Forge Eleven client pitch. Built as a single-page, scroll-driven, cinematic experience.
+Every fact on the site comes from the venue's own public channels, and every
+photo is theirs. See [`data/site.ts`](data/site.ts) and
+[`IMAGE-CREDITS.md`](IMAGE-CREDITS.md).
 
-Developed under the Forge Eleven portfolio brand, adapted from the Black Perch build.
-
-**Status:** Phase A (structural rebrand + placeholders). Real photography, confirmed menu, verified hours, and social links are still pending client-supplied assets — see `[PLACEHOLDER]`/`TODO` markers throughout the code.
-
-## Getting Started
+## Run it
 
 ```bash
-npm run dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm start
+npm run lint
+npm run typecheck
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view it locally. The page auto-updates as you edit files inside `app/` and `components/`.
+Requires Node 20.9+.
 
-## Stack
+## Before launch (checklist for the venue)
 
-- **Next.js** — framework
-- **TypeScript**
-- **Tailwind CSS** — utility styling (note: some `gap-*` utilities are unreliable in this pipeline; inline styles are used instead in places)
-- **GSAP + ScrollTrigger** — scroll-driven animation
-- **Lenis** — smooth scrolling
-- **Framer Motion** — component-level motion (menu filter transitions)
-- **Resend** — contact form email delivery
+Anything that still needs the venue's confirmation is marked `VERIFY` in the
+data files.
 
-## Design System
+- [ ] **Photography**: swap in original high-res photos and get written
+      permission (see `IMAGE-CREDITS.md`).
+- [ ] **Hours**: the site says "Open 24/7", taken from their Instagram and
+      TikTok bios. Confirm, including kitchen hours (`data/site.ts`).
+- [ ] **Weekly nights**: themes come from their recent posts. Confirm the
+      current line-up (`data/venue.ts`).
+- [ ] **Menu**: add real items and KES prices to `data/menu.ts`. The section
+      switches from "get the menu on WhatsApp" to a price list automatically.
+- [ ] **Map**: paste the exact Google Maps place link into `mapsQuery` /
+      `LINKS.directions` (`data/site.ts`).
+- [ ] **Domain**: set `NEXT_PUBLIC_SITE_URL` so canonical URLs, the sitemap
+      and social previews point at the real domain.
+- [ ] **Reviews**: none are shown. Add only real, attributed Google/Facebook
+      reviews if the venue wants social proof.
 
-| Token | Value |
-|---|---|
-| Charcoal (background) | `#080808` |
-| Cream (text) | `#f0ede6` |
-| Gold (accent) | `#c9a96e` |
-| Heading font | Cormorant Garamond |
-| Body font | DM Sans |
+## How it's built
 
-## Site Structure
+- **Next.js 16** (App Router, Turbopack), fully static output.
+- **CSS Modules** with design tokens in `app/globals.css`, with no CSS framework.
+- **next/image** with static imports: AVIF/WebP, responsive `sizes`, blur
+  placeholders; the hero image is preloaded.
+- **Motion**: one client component (`components/layout/Motion.tsx`) runs
+  Lenis smooth scrolling and GSAP ScrollTrigger reveals. Sections opt in with
+  `data-reveal="up" | "lines" | "image"` and `data-speed` for parallax, so
+  they stay server components. The hero entrance is pure CSS. Everything is
+  off under `prefers-reduced-motion`.
+- **SEO**: metadata, Open Graph card, `BarOrPub`/`NightClub` JSON-LD,
+  robots.txt and sitemap.
 
-Single-page scroll with anchor-based navigation (not multi-route). Current build order:
+```
+app/                 layout, page, 404, icons, OG image, robots, sitemap
+components/layout/   Header, Footer, MobileActionBar, Motion, StructuredData
+components/sections/ Hero, Intro, Experience, Nights, Menu, Gallery, Visit, ClosingCta
+components/ui/       SectionHead, icons
+data/                site facts, venue content, menu, nav  ← edit content here
+assets/venue/        photography (statically imported)
+public/brand/        logo files
+```
 
-1. Hero (`id="home"`)
-2. Marquee
-3. Featured Menu (`id="menu"`)
-4. Our Story / About (`id="story"`)
-5. Reservations / Contact (`id="reserve"`)
+## Design
 
+| Token | Value | Use |
+| --- | --- | --- |
+| `--ink` | `#0b0809` | background |
+| `--paper` | `#f4efe9` | text |
+| `--red` | `#d91f26` | logo red: fills, large type |
+| `--red-hot` | `#ff4a4f` | red for small text (5.9:1) |
+| Display | Big Shoulders | headings, uppercase |
+| Body | Manrope | copy, UI |
 
-## Image Assets
+## Deploy
 
-Images are intentionally deferred — real photography is dropped into `public/images/` once available. Each image slot renders a labeled dashed-border placeholder behind the `<img>` tag, so a missing file never shows as a blank space; it falls back to the placeholder automatically via `onError`.
-
-Current folders:
-
-- `public/images/menu/` — dish photography (see `data/menu.ts` for expected filenames)
-- `public/images/experience/` — "Our Story" mosaic photography
-- `public/images/reservation/` — reservation section photography
-
-## Environment Variables
-
-Set `RESEND_API_KEY` in your deployment environment (Vercel dashboard → Settings → Environment Variables). Never commit this to `.env.local` or push it to the repo.
-
-## Deploy on Vercel
-
-Connect this GitHub repo (on the `space-next-door-demo` branch), add the `RESEND_API_KEY` environment variable in the dashboard, and deploy as a separate Vercel project so it doesn't overwrite the live Black Perch deployment.
-
-- **Repo:** `github.com/ndereba2business-glitch/black-pearch` (branch: `space-next-door-demo`)
-- **Live:** _not yet deployed — deploy as a new Vercel project, not the existing Black Perch one_
-
-## Development Notes
-
-- Full-file replacements preferred over partial edits to avoid regressions.
-- Run `tsc --noEmit` and `eslint` before committing.
-- Preserve existing atmosphere layers (custom cursor, ambient particles, fog, grain overlay) — don't remove without explicit instruction.
-- One commit per completed section/feature, following Conventional Commits.
-
-## Learn More
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [GSAP ScrollTrigger Docs](https://gsap.com/docs/v3/Plugins/ScrollTrigger/)
+Deploy as its own Vercel project and set `NEXT_PUBLIC_SITE_URL`. No other
+environment variables are needed.

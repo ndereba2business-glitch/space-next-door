@@ -1,0 +1,86 @@
+.grid {
+  display: grid;
+  gap: 48px;
+}
+
+.copy {
+  display: grid;
+  gap: 24px;
+  align-content: start;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.facts > div {
+  padding: 20px 16px 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.facts dt {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red-hot);
+}
+.facts dd {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.figure {
+  position: relative;
+}
+.frame {
+  aspect-ratio: 4 / 5;
+}
+.parallax {
+  position: absolute;
+  inset: -10% 0;
+}
+.parallax img {
+  object-fit: cover;
+}
+.caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 7fr 5fr;
+    grid-template-areas:
+      'head figure'
+      'copy figure';
+    column-gap: clamp(48px, 7vw, 120px);
+    row-gap: 56px;
+  }
+  .head {
+    grid-area: head;
+  }
+  .copy {
+    grid-area: copy;
+    max-width: 640px;
+  }
+  .figure {
+    grid-area: figure;
+    align-self: end;
+  }
+  .facts {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
