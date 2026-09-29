@@ -13,7 +13,8 @@ export default function ClosingCta() {
     <section id="reserve" className={styles.section} aria-labelledby="reserve-title" tabIndex={-1}>
       <div className={`${styles.bg} grain`} aria-hidden="true">
         <div className={styles.bgInner} data-speed="0.2">
-          <Image src={PHOTOS.mainHall.src} alt="" fill sizes="100vw" placeholder="blur" />
+          {/* Heavily blurred and darkened, so a smaller rendition is plenty */}
+          <Image src={PHOTOS.mainHall.src} alt="" fill sizes="50vw" placeholder="blur" />
         </div>
       </div>
 
