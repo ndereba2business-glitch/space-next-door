@@ -1,166 +1,47 @@
 // data/menu.ts
 //
-// PLACEHOLDER MENU — Space Next Door demo (space-next-door-demo branch).
-// No real menu, dish names, or prices could be publicly verified for this
-// venue, so every item below is a clearly-labeled placeholder rather than
-// an invented dish. Replace with the client's real menu (names, descriptions,
-// prices, photos) before this demo goes live. Category keys are unchanged
-// from the original site (see types/menu.ts) to avoid touching MenuFilter/
-// MenuCard component logic; only their display labels are re-themed for a
-// sports bar & grill.
+// Space Next Door hasn't published a menu online, so nothing here is
+// invented. The Menu section shows a "request today's menu" state until
+// items are added below, then it renders them as an editorial price list
+// automatically.
 //
-// Swap the `image` paths for real photography once it's shot — everything
-// else (cards, filters, badges) reads from here, nothing is hardcoded in
-// the components.
+// To go live: fill `items` for each section with the venue's real dishes
+// and prices (KES). Empty sections are hidden.
+//
+//   { name: 'Dish name', description: 'Optional one-liner', price: 950 }
 
-import type {
-  DietaryTag,
-  MenuBadgeType,
-  MenuFilterCategory,
-  MenuItem,
-} from '@/types/menu'
-
-export const CATEGORY_LABELS: Record<MenuFilterCategory, string> = {
-  all: 'All Selection',
-  breakfast: 'Bar Bites & Starters',
-  mains: 'Grill & Mains',
-  'pizzas-burgers': 'Pizzas & Burgers',
-  cocktails: 'Cocktails & Spirits',
+export type MenuItem = {
+  name: string
+  description?: string
+  price?: number
 }
 
-export const MENU_CATEGORIES: MenuFilterCategory[] = [
-  'all',
-  'breakfast',
-  'mains',
-  'pizzas-burgers',
-  'cocktails',
+export type MenuSection = {
+  id: string
+  title: string
+  blurb: string
+  items: MenuItem[]
+}
+
+export const MENU: MenuSection[] = [
+  {
+    id: 'grill',
+    title: 'From the Grill',
+    blurb: 'Hot off the grill, for match days and long nights.',
+    items: [],
+  },
+  {
+    id: 'kitchen',
+    title: 'Kitchen',
+    blurb: 'Plates to share, and plates you won’t.',
+    items: [],
+  },
+  {
+    id: 'bar',
+    title: 'Bar',
+    blurb: 'Bottles, rounds and the drinks that start the night.',
+    items: [],
+  },
 ]
 
-export const BADGE_LABELS: Record<MenuBadgeType, string> = {
-  'chefs-selection': "Chef's Selection",
-  'house-favourite': 'House Favourite',
-  'signature-dish': 'Signature Dish',
-  'premium-cut': 'Premium Cut',
-  'wine-pairing': 'Wine Pairing Available',
-}
-
-export const DIETARY_TAG_META: Record<DietaryTag, { label: string; icon: string }> = {
-  vegetarian: { label: 'Vegetarian', icon: '🌿' },
-  'gluten-free': { label: 'Gluten Free', icon: '🌾' },
-  'contains-nuts': { label: 'Contains Nuts', icon: '🥜' },
-  dairy: { label: 'Dairy', icon: '🥛' },
-  spicy: { label: 'Hot / Spicy', icon: '🌶' },
-}
-
-// PLACEHOLDER ITEMS — none of these are real dishes. `rating` and `price`
-// are set to 0 with currency "TBC" so nothing on screen reads as a real,
-// confirmed price. Replace every field with the client's actual menu.
-export const MENU_ITEMS: MenuItem[] = [
-  // ── Bar Bites & Starters ───────────────────────────────────────
-  {
-    id: 'starter-placeholder-1',
-    title: '[Starter — name TBC]',
-    category: 'breakfast',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/starter-placeholder-1.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-  {
-    id: 'starter-placeholder-2',
-    title: '[Starter — name TBC]',
-    category: 'breakfast',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/starter-placeholder-2.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-
-  // ── Grill & Mains ────────────────────────────────────────────
-  {
-    id: 'grill-placeholder-1',
-    title: '[Grill dish — name TBC]',
-    category: 'mains',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/grill-placeholder-1.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-  {
-    id: 'grill-placeholder-2',
-    title: '[Grill dish — name TBC]',
-    category: 'mains',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/grill-placeholder-2.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-  {
-    id: 'grill-placeholder-3',
-    title: '[Grill dish — name TBC]',
-    category: 'mains',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/grill-placeholder-3.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-
-  // ── Pizzas & Burgers ─────────────────────────────────────────
-  {
-    id: 'pizza-burger-placeholder-1',
-    title: '[Pizza or burger — name TBC]',
-    category: 'pizzas-burgers',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/pizza-burger-placeholder-1.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-  {
-    id: 'pizza-burger-placeholder-2',
-    title: '[Pizza or burger — name TBC]',
-    category: 'pizzas-burgers',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/pizza-burger-placeholder-2.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-
-  // ── Cocktails & Spirits ──────────────────────────────────────
-  {
-    id: 'cocktail-placeholder-1',
-    title: '[Cocktail — name TBC]',
-    category: 'cocktails',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/cocktail-placeholder-1.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-  {
-    id: 'cocktail-placeholder-2',
-    title: '[Cocktail — name TBC]',
-    category: 'cocktails',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/cocktail-placeholder-2.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-  {
-    id: 'cocktail-placeholder-3',
-    title: '[Cocktail — name TBC]',
-    category: 'cocktails',
-    description: '[Add real description once the menu is confirmed]',
-    image: '/images/menu/cocktail-placeholder-3.png',
-    rating: 0,
-    price: 0,
-    currency: 'TBC',
-  },
-]
+export const MENU_CURRENCY = 'KES'
