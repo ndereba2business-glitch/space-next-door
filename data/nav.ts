@@ -1,8 +1,11 @@
 // data/nav.ts
+//
+// Homepage sections, in page order. Links are written as `/#id` so they
+// also work from /menu and /credits.
 export const NAV = [
-  { id: 'experience', label: 'Experience' },
-  { id: 'nights', label: 'Nights' },
   { id: 'menu', label: 'Menu' },
-  { id: 'gallery', label: 'Gallery' },
+  { id: 'order', label: 'Order' },
+  { id: 'space', label: 'The Space' },
+  { id: 'nights', label: 'Nights' },
   { id: 'visit', label: 'Visit' },
 ] as const

@@ -35,6 +35,8 @@ export const SITE = {
     reserveMessage: "Hi Space Next Door, I'd like to reserve a table.",
     menuMessage: "Hi Space Next Door, could you send me today's menu?",
     groupMessage: "Hi Space Next Door, I'd like to plan a group order. Date: , Guests: ",
+    orderMessage:
+      "Hi Space Next Door, I'd like to place an order.\n\nOrder: \nPickup or delivery: \nLocation: ",
     birthdayMessage:
       "Hi Space Next Door, I'd like to book a birthday celebration. Date: , Guests: ",
   },
@@ -63,6 +65,18 @@ export const SITE = {
       { area: 'Kitchen & grill', times: '10am – 4am' },
       { area: 'Main hall & DJs', times: 'Thu – Sun, 8pm till late' },
     ],
+  },
+
+  // The venue lists food delivery among its services. DEMO CONTENT: the
+  // steps and timings below are stand-ins; confirm the real delivery area,
+  // fees and hours with the venue.
+  ordering: {
+    steps: [
+      { title: 'Send your order', body: 'Message us what you’d like from the menu.' },
+      { title: 'We confirm', body: 'You get the total and a time, usually within minutes.' },
+      { title: 'Collect or relax', body: 'Pick it up at the door or have it brought to you.' },
+    ],
+    note: 'Delivery within Nakuru town. Pickup any time.',
   },
 
   // Birthday reservation poster (2026).
@@ -99,6 +113,7 @@ export const LINKS = {
   reserve: whatsappUrl(SITE.whatsapp.reserveMessage),
   menu: whatsappUrl(SITE.whatsapp.menuMessage),
   group: whatsappUrl(SITE.whatsapp.groupMessage),
+  order: whatsappUrl(SITE.whatsapp.orderMessage),
   birthday: whatsappUrl(SITE.whatsapp.birthdayMessage),
   call: SITE.phone.tel,
   directions: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(SITE.mapsQuery)}`,
