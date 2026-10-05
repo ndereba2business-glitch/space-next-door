@@ -1,25 +1,28 @@
 // components/sections/Nights.tsx
 import Image from 'next/image'
 import SectionHead from '@/components/ui/SectionHead'
-import { NIGHTS, PHOTOS } from '@/data/venue'
+import { NIGHTS } from '@/data/venue'
 import { SITE, whatsappUrl } from '@/data/site'
 import { IconArrowUpRight, IconInstagram } from '@/components/ui/icons'
 import styles from './Nights.module.css'
 
-const PREVIEWS = [PHOTOS.hallLights, PHOTOS.neonSpade, PHOTOS.mainHall, PHOTOS.facadeNeon]
-
 export default function Nights() {
   return (
-    <section id="nights" className="section" aria-labelledby="nights-title" tabIndex={-1}>
+    <section
+      id="nights"
+      className={`section theme-dark ${styles.section}`}
+      aria-labelledby="nights-title"
+      tabIndex={-1}
+    >
       <div className="container">
         <div className={styles.top}>
           <SectionHead
-            num="03"
+            num="05"
             label="The Week"
             id="nights-title"
             lines={[
               <>
-                Pick your <span className="accent">night.</span>
+                Pick your <em>night.</em>
               </>,
             ]}
           />
@@ -29,7 +32,7 @@ export default function Nights() {
         </div>
 
         <ul className={styles.list}>
-          {NIGHTS.map((night, i) => (
+          {NIGHTS.map((night) => (
             <li key={night.day} data-reveal="up">
               <a
                 className={styles.row}
@@ -43,11 +46,17 @@ export default function Nights() {
                 <span className={styles.name}>{night.name}</span>
                 <span className={styles.detail}>{night.detail}</span>
                 <span className={styles.go} aria-hidden="true">
-                  <IconArrowUpRight width={22} height={22} />
+                  <IconArrowUpRight width={20} height={20} />
                 </span>
                 <span className="sr-only"> Reserve on WhatsApp (opens in a new tab)</span>
                 <span className={styles.preview} aria-hidden="true">
-                  <Image src={PREVIEWS[i].src} alt="" fill sizes="280px" />
+                  <Image
+                    src={night.photo.src}
+                    alt=""
+                    fill
+                    sizes="240px"
+                    style={{ objectPosition: night.photo.focus }}
+                  />
                 </span>
               </a>
             </li>
