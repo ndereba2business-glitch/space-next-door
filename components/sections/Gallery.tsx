@@ -48,16 +48,16 @@ export default function Gallery() {
   const current = index == null ? null : GALLERY[index]
 
   return (
-    <section id="gallery" className="section" aria-labelledby="gallery-title" tabIndex={-1}>
+    <section id="gallery" className="section theme-light" aria-labelledby="gallery-title" tabIndex={-1}>
       <div className="container">
         <SectionHead
-          num="05"
+          num="06"
           label="Gallery"
           id="gallery-title"
           className={styles.head}
           lines={[
             <>
-              Inside the <span className="accent">space.</span>
+              Inside <em>the space.</em>
             </>,
           ]}
         />
@@ -75,8 +75,9 @@ export default function Gallery() {
                   src={photo.src}
                   alt={photo.alt}
                   fill
-                  sizes={i === 0 ? '(min-width: 900px) 42vw, 100vw' : '(min-width: 900px) 30vw, 50vw'}
+                  sizes={i === 0 ? '(min-width: 900px) 42vw, 100vw' : '(min-width: 900px) 34vw, 50vw'}
                   placeholder="blur"
+                  style={{ objectPosition: photo.focus }}
                 />
                 <span className={styles.caption}>
                   <span>{String(i + 1).padStart(2, '0')}</span>
@@ -95,18 +96,18 @@ export default function Gallery() {
           className={styles.insta}
           data-reveal="up"
         >
-          <IconInstagram width={28} height={28} />
+          <IconInstagram width={24} height={24} />
           <span className={styles.instaText}>
             <span className={styles.instaLabel}>Every night, posted</span>
             <span className={styles.instaHandle}>{SITE.social.instagram.handle}</span>
           </span>
-          <IconArrowUpRight width={28} height={28} className={styles.instaArrow} />
+          <IconArrowUpRight width={24} height={24} className={styles.instaArrow} />
         </a>
       </div>
 
       <dialog
         ref={dialogRef}
-        className={styles.dialog}
+        className={`theme-dark ${styles.dialog}`}
         aria-label="Photo viewer"
         onClick={(e) => e.target === e.currentTarget && close()}
       >
