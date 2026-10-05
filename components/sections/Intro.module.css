@@ -1,86 +1,82 @@
 .grid {
   display: grid;
-  gap: 48px;
+  gap: 56px;
 }
 
 .copy {
   display: grid;
-  gap: 24px;
+  gap: 28px;
   align-content: start;
 }
 
-.facts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-top: 16px;
-  border-top: 1px solid var(--line);
-}
-.facts > div {
-  padding: 20px 16px 20px 0;
-  border-bottom: 1px solid var(--line);
-}
-.facts dt {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--red-hot);
-}
-.facts dd {
-  margin-top: 6px;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.figure {
+/* Two photographs, the smaller one stepping over the larger */
+.media {
   position: relative;
+  padding-bottom: 14%;
+  padding-left: 12%;
 }
-.frame {
+.tall {
   aspect-ratio: 4 / 5;
 }
 .parallax {
   position: absolute;
-  inset: -10% 0;
+  inset: -8% 0;
 }
 .parallax img {
   object-fit: cover;
 }
-.caption {
+.small {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 46%;
+  aspect-ratio: 1;
+  outline: 10px solid var(--bg);
+}
+
+.facts {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+.facts > div {
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 14px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--paper-dim);
+  flex-direction: column-reverse;
+  gap: 6px;
+  padding-block: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.facts dd {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-variation-settings: 'SOFT' 50;
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.facts dt {
+  font-size: 0.875rem;
+  color: var(--fg-dim);
+}
+
+@media (min-width: 768px) {
+  .facts {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 40px;
+  }
+  .facts > div {
+    border-bottom: 0;
+    padding-block: 28px 0;
+  }
 }
 
 @media (min-width: 1024px) {
   .grid {
-    grid-template-columns: 7fr 5fr;
-    grid-template-areas:
-      'head figure'
-      'copy figure';
-    column-gap: clamp(48px, 7vw, 120px);
-    row-gap: 56px;
-  }
-  .head {
-    grid-area: head;
-  }
-  .copy {
-    grid-area: copy;
-    max-width: 640px;
-  }
-  .figure {
-    grid-area: figure;
-    align-self: end;
+    grid-template-columns: 6fr 5fr;
+    column-gap: clamp(48px, 8vw, 128px);
+    row-gap: clamp(64px, 8vw, 112px);
+    align-items: center;
   }
   .facts {
-    grid-template-columns: repeat(4, 1fr);
+    grid-column: 1 / -1;
   }
 }
