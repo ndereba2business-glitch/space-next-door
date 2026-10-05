@@ -101,7 +101,7 @@ export const MENU: MenuSection[] = [
   {
     id: 'bar',
     title: 'Bar',
-    blurb: 'Bottles, rounds and the drinks that start the night.',
+    blurb: 'Cocktails, cold beer and bottles.',
     items: [
       {
         name: 'The Space To Be',
