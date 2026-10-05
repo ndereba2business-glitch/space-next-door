@@ -14,6 +14,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -24,6 +25,9 @@ gsap.registerPlugin(ScrollTrigger)
 const EASE = 'expo.out'
 
 export default function Motion() {
+  // Re-run on client-side navigation so the new page's elements are wired up.
+  const pathname = usePathname()
+
   useEffect(() => {
     const root = document.documentElement
     if (prefersReducedMotion()) {
@@ -112,7 +116,7 @@ export default function Motion() {
       lenis.destroy()
       setLenis(null)
     }
-  }, [])
+  }, [pathname])
 
   return null
 }
