@@ -34,6 +34,23 @@
 .details address {
   font-style: normal;
 }
+.hours {
+  width: 100%;
+  max-width: 24rem;
+  display: grid;
+  gap: 6px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.hours li span:first-child {
+  color: var(--paper-dim);
+  font-weight: 400;
+}
 .sub {
   font-size: 0.9375rem;
   font-weight: 400;

@@ -56,6 +56,13 @@ export const SITE = {
   hours: {
     summary: 'Open 24 hours, 7 days',
     short: 'Open 24/7',
+    // DEMO CONTENT — the per-area times below are stand-ins for the pitch.
+    // Replace with the venue's real schedule before going live.
+    detail: [
+      { area: 'Sports bar', times: 'Open 24 hours' },
+      { area: 'Kitchen & grill', times: '10am – 4am' },
+      { area: 'Main hall & DJs', times: 'Thu – Sun, 8pm till late' },
+    ],
   },
 
   // Birthday reservation poster (2026).

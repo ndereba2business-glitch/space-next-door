@@ -51,6 +51,14 @@ export default function Visit() {
               </dt>
               <dd>
                 {SITE.hours.summary}
+                <ul className={styles.hours}>
+                  {SITE.hours.detail.map((row) => (
+                    <li key={row.area}>
+                      <span>{row.area}</span>
+                      <span>{row.times}</span>
+                    </li>
+                  ))}
+                </ul>
                 <span className={styles.sub}>Weekends fill up. Book ahead for groups.</span>
               </dd>
             </div>
