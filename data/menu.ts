@@ -102,7 +102,37 @@ export const MENU: MenuSection[] = [
     id: 'bar',
     title: 'Bar',
     blurb: 'Bottles, rounds and the drinks that start the night.',
-    items: [],
+    items: [
+      {
+        name: 'The Space To Be',
+        description: 'House signature: gin, hibiscus, lime, tonic.',
+        price: 750,
+      },
+      {
+        name: 'Dawa',
+        description: 'Vodka, honey, muddled lime, crushed ice.',
+        price: 600,
+      },
+      {
+        name: 'Neon Mojito',
+        description: 'White rum, mint, passion fruit, soda.',
+        price: 700,
+      },
+      {
+        name: 'Whisky Highball',
+        description: 'Blended Scotch, ginger ale, long and cold.',
+        price: 650,
+      },
+      {
+        name: 'Beer Bucket',
+        description: 'Six ice-cold local lagers for the table.',
+        price: 1800,
+      },
+      {
+        name: 'Bottle Service',
+        description: 'Premium spirits with mixers. Ask your host.',
+      },
+    ],
   },
 ]
 
