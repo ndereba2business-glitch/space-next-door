@@ -1,11 +1,7 @@
-.section {
-  background: linear-gradient(to bottom, var(--ink), var(--ink-raise) 40%, var(--ink));
-}
-
 .top {
   display: grid;
   gap: 28px;
-  margin-bottom: clamp(56px, 8vw, 112px);
+  margin-bottom: clamp(56px, 7vw, 104px);
 }
 
 .grid {
@@ -23,59 +19,78 @@
   aspect-ratio: 4 / 5;
 }
 .frame img {
-  transition:
-    transform 1.2s var(--ease-out),
-    filter 0.8s ease;
+  transition: transform 1.4s var(--ease-out);
 }
 
 .text {
+  position: relative;
   display: grid;
-  gap: 12px;
+  gap: 10px;
   align-content: start;
-  max-width: 30em;
+  padding-left: clamp(56px, 6vw, 84px);
+}
+
+/* Oversized serif numeral hanging in the margin */
+.num {
+  position: absolute;
+  left: 0;
+  top: -6px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--accent-text);
 }
 
 .kicker {
-  display: flex;
-  gap: 12px;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--paper-dim);
-}
-.kicker span {
-  color: var(--red-hot);
+  color: var(--fg-dim);
 }
 
 .cta {
   justify-self: start;
   margin-top: 4px;
-  color: var(--red-hot);
+  color: var(--accent-text);
 }
 
 @media (hover: hover) {
   .item:hover .frame img {
     transform: scale(1.04);
-    filter: saturate(1.1);
+  }
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: clamp(24px, 4vw, 56px);
+    row-gap: 72px;
+  }
+  .item:nth-child(2) {
+    margin-top: 96px;
   }
 }
 
 @media (min-width: 768px) {
   .top {
-    grid-template-columns: 1fr minmax(0, 22em);
+    grid-template-columns: 1fr minmax(0, 24em);
     align-items: end;
   }
+}
+
+@media (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: clamp(32px, 6vw, 96px);
-    row-gap: clamp(72px, 9vw, 140px);
+    grid-template-columns: repeat(3, 1fr);
   }
-  /* Offset the right column for an editorial stagger */
-  .item:nth-child(even) {
-    margin-top: clamp(80px, 14vw, 220px);
+  /* Each frame steps down from the last */
+  .item:nth-child(2) {
+    margin-top: clamp(64px, 8vw, 128px);
   }
   .item:nth-child(3) {
-    margin-top: clamp(-160px, -8vw, -60px);
+    margin-top: clamp(128px, 16vw, 256px);
   }
 }
