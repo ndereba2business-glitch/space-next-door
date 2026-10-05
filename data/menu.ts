@@ -65,7 +65,38 @@ export const MENU: MenuSection[] = [
     id: 'kitchen',
     title: 'Kitchen',
     blurb: 'Plates to share, and plates you won’t.',
-    items: [],
+    items: [
+      {
+        name: 'Space Wings',
+        description: 'Ten wings: honey-chilli, barbecue or dry rub.',
+        price: 850,
+      },
+      {
+        name: 'Loaded Masala Chips',
+        description: 'Tossed in house masala, coriander, lime.',
+        price: 450,
+      },
+      {
+        name: 'Next Door Burger',
+        description: 'Double beef, cheddar, caramelised onion, chips.',
+        price: 950,
+      },
+      {
+        name: 'Tilapia Fry',
+        description: 'Whole fried tilapia, sukuma wiki, ugali.',
+        price: 1250,
+      },
+      {
+        name: 'Chicken Tikka Pizza',
+        description: 'Stone-baked, twelve inch, built for sharing.',
+        price: 1100,
+      },
+      {
+        name: 'Match-Day Platter',
+        description: 'Wings, samosas, sausages, chips. Feeds four.',
+        price: 2600,
+      },
+    ],
   },
   {
     id: 'bar',
