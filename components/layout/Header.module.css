@@ -1,0 +1,292 @@
+/* Over the hero: transparent with light type. Once scrolled (or on inner
+   pages): solid paper with dark type and the red logo. The two states only
+   swap the colour tokens below. */
+.header {
+  --bg: var(--espresso); /* text colour of buttons when their fill inverts */
+  --fg: #f5eee3;
+  --fg-dim: rgba(245, 238, 227, 0.8);
+  --line-strong: rgba(245, 238, 227, 0.4);
+  --accent-text: var(--red-bright);
+
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  color: var(--fg);
+  border-bottom: 1px solid transparent;
+  transition:
+    transform 0.6s var(--ease-out),
+    background-color 0.5s ease,
+    border-color 0.5s ease,
+    color 0.4s ease;
+}
+
+.solid {
+  --bg: var(--cream);
+  --fg: #1c1512;
+  --fg-dim: rgba(28, 21, 18, 0.74);
+  --line-strong: rgba(28, 21, 18, 0.32);
+  --accent-text: #b3181f;
+
+  background: rgba(245, 238, 227, 0.92);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom-color: rgba(28, 21, 18, 0.1);
+}
+
+.hidden {
+  transform: translateY(-100%);
+}
+
+/* backdrop-filter would make the header the containing block for the
+   fixed overlay, so it's dropped while the menu is open. */
+.open {
+  background: var(--cream);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.bar {
+  position: relative;
+  z-index: 2;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ── Logo: two marks stacked, cross-faded between states ── */
+.logo {
+  position: relative;
+  display: block;
+  width: 80px;
+  flex-shrink: 0;
+  margin-right: auto;
+}
+.logo img {
+  width: 100%;
+  height: auto;
+  transition: opacity 0.4s ease;
+}
+.logo img:last-child {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.solid .logo img:first-child {
+  opacity: 0;
+}
+.solid .logo img:last-child {
+  opacity: 1;
+}
+
+/* ── Desktop nav ── */
+.nav {
+  display: none;
+}
+.nav ul {
+  display: flex;
+  gap: clamp(20px, 2.6vw, 40px);
+}
+.navLink {
+  position: relative;
+  display: inline-block;
+  padding-block: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  transition: color 0.3s ease;
+}
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  background: var(--accent-text);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out);
+}
+.navLink:hover,
+.navLink[aria-current='true'] {
+  color: var(--fg);
+}
+.navLink:hover::after,
+.navLink[aria-current='true']::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reserve {
+  min-height: 44px;
+  padding: 0 22px;
+}
+
+/* ── Menu toggle ── */
+.toggle {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  transition: border-color 0.3s ease;
+}
+.toggle:hover {
+  border-color: var(--fg);
+}
+.toggleLines,
+.toggleLines::before,
+.toggleLines::after {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--fg);
+  transition:
+    transform 0.45s var(--ease-out),
+    background-color 0.4s ease;
+}
+.toggleLines {
+  position: relative;
+  background: transparent;
+}
+.toggleLines::before,
+.toggleLines::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+.toggleLines::before {
+  transform: translateY(-4px);
+}
+.toggleLines::after {
+  transform: translateY(4px);
+}
+.open .toggleLines::before {
+  transform: rotate(45deg);
+}
+.open .toggleLines::after {
+  transform: rotate(-45deg);
+}
+
+/* ── Mobile overlay ── */
+.panel {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  padding-top: calc(var(--header-h) + 24px);
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  background: var(--cream);
+  color: #1c1512;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.45s var(--ease-out),
+    visibility 0s linear 0.45s;
+}
+.panel[data-open='true'] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.45s var(--ease-out);
+}
+
+.panelList a {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding-block: 8px;
+  font-family: var(--font-display);
+  font-weight: 320;
+  font-variation-settings: 'SOFT' 50;
+  font-size: clamp(2.5rem, 12vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  transform: translateY(24px);
+  opacity: 0;
+  transition:
+    transform 0.7s var(--ease-out),
+    opacity 0.7s var(--ease-out),
+    color 0.3s ease;
+  transition-delay: calc(0.06s * var(--i) + 0.05s);
+}
+.panel[data-open='true'] .panelList a {
+  transform: none;
+  opacity: 1;
+}
+.panelList a:hover {
+  font-style: italic;
+  color: var(--accent-text);
+}
+.panelNum {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--accent-text);
+}
+
+.panelFoot {
+  display: grid;
+  gap: 12px;
+  padding-top: 32px;
+}
+.panelMeta {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: var(--fg-dim);
+}
+.panelMeta a {
+  color: var(--fg);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.panelSocial {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.panelSocial > a:not(:global(.link)) {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+}
+.panelSocial :global(.link) {
+  margin-left: auto;
+}
+
+@media (max-width: 419px) {
+  .reserve {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    width: 92px;
+    margin-right: 0;
+  }
+  .nav {
+    display: block;
+    margin-inline: auto;
+  }
+  .toggle,
+  .panel {
+    display: none;
+  }
+}

@@ -1,57 +1,114 @@
-﻿/* app/globals.css */
+/* app/globals.css
+ *
+ * Space Next Door design system.
+ *
+ * A warm editorial base (cream paper, espresso charcoal) with the red of
+ * the venue's logo and neon used sparingly as the one accent. Sections
+ * pick a theme (.theme-light / .theme-dark / .theme-ember) and everything
+ * inside reads the same semantic tokens, so the page can alternate between
+ * light and atmospheric dark without per-component colour rules.
+ */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* ============================================
-   ROOT VARIABLES — Your design system tokens
-   ============================================ */
 :root {
-  --color-bg: #080808;
-  --color-text: #f0ede6;
-  --color-accent: #c9a96e;
-  --color-muted: #4a4a4a;
-  --font-heading: 'Cormorant Garamond', serif;
-  --font-body: 'DM Sans', sans-serif;
+  /* Palette */
+  --cream: #f5eee3;
+  --bone: #ece2d2;
+  --sand: #d8c8b0;
+  --espresso: #18120f;
+  --espresso-2: #221a16;
+  --red: #c81e25; /* logo red, AA on cream (4.9:1) and under white text (5.7:1) */
+  --red-bright: #ff6a5e; /* red for small text on dark (6.4:1) */
+  --clay: #9a4a2a;
+
+  --font-display: var(--font-fraunces), 'Iowan Old Style', Georgia, serif;
+  --font-body: var(--font-manrope), system-ui, sans-serif;
+
+  --gutter: clamp(20px, 5vw, 80px);
+  --max: 1400px;
+  --header-h: 72px;
+  --section-y: clamp(88px, 11vw, 168px);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* ============================================
-   BASE RESET
-   ============================================ */
-* {
+/* ── Themes ─────────────────────────────────────────────────────────── */
+:root,
+.theme-light {
+  --bg: var(--cream);
+  --surface: var(--bone);
+  --fg: #1c1512;
+  --fg-dim: rgba(28, 21, 18, 0.74); /* 7.9:1 on cream */
+  --fg-faint: rgba(28, 21, 18, 0.42); /* large / decorative only */
+  --line: rgba(28, 21, 18, 0.14);
+  --line-strong: rgba(28, 21, 18, 0.32);
+  --accent: var(--red);
+  --accent-text: #b3181f;
+}
+
+.theme-dark {
+  --bg: var(--espresso);
+  --surface: var(--espresso-2);
+  --fg: #f5eee3;
+  --fg-dim: rgba(245, 238, 227, 0.74); /* 8.6:1 on espresso */
+  --fg-faint: rgba(245, 238, 227, 0.42);
+  --line: rgba(245, 238, 227, 0.14);
+  --line-strong: rgba(245, 238, 227, 0.32);
+  --accent: var(--red);
+  --accent-text: var(--red-bright);
+}
+
+.theme-ember {
+  --bg: var(--red);
+  --surface: #a9161c;
+  --fg: #fff8f0;
+  --fg-dim: rgba(255, 248, 240, 0.88); /* 4.9:1 on red */
+  --fg-faint: rgba(255, 248, 240, 0.6);
+  --line: rgba(255, 248, 240, 0.28);
+  --line-strong: rgba(255, 248, 240, 0.55);
+  --accent: #fff8f0;
+  --accent-text: #fff8f0;
+}
+
+.theme-light,
+.theme-dark,
+.theme-ember {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* ── Reset ─────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: auto; /* Lenis handles smooth scroll */
-  background-color: var(--color-bg);
+  background: var(--espresso);
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: var(--header-h);
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-body);
-  overflow-x: hidden;
-  cursor: none;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
 }
 
-body::-webkit-scrollbar {
-  display: none;
-}
-
-/* ============================================
-   TYPOGRAPHY SCALE
-   ============================================ */
-h1, h2, h3, h4 {
-  font-family: var(--font-heading);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+img,
+svg,
+iframe {
+  display: block;
+  max-width: 100%;
 }
 
 a {
@@ -59,337 +116,338 @@ a {
   text-decoration: none;
 }
 
-/* ============================================
-   SELECTION COLOR
-   ============================================ */
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
 ::selection {
-  background-color: var(--color-accent);
-  color: var(--color-bg);
+  background: var(--red);
+  color: #fff;
 }
 
-/* ============================================
-   RESPONSIVE SECTION PADDING SYSTEM
-   ============================================ */
-.section-padding {
-  padding-left: 80px;
-  padding-right: 80px;
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+/* Programmatic focus targets (skip link, section jumps) don't need a ring */
+[tabindex='-1']:focus {
+  outline: none;
 }
 
-@media (max-width: 1024px) {
-  .section-padding {
-    padding-left: 48px;
-    padding-right: 48px;
-  }
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
 
-@media (max-width: 640px) {
-  .section-padding {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
+/* ── Layout primitives ─────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: calc(var(--max) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
-/* ============================================
-   RESPONSIVE GRID COLLAPSE
-   ============================================ */
-.responsive-grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
+.section {
+  position: relative;
+  padding-block: var(--section-y);
 }
 
-@media (max-width: 768px) {
-  .responsive-grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
-  }
-}
-
-.responsive-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-}
-
-@media (max-width: 768px) {
-  .responsive-grid-3 {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-}
-
-/* ============================================
-   WORK ROW / PROJECT STYLING
-   ============================================ */
-.work-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-@media (max-width: 640px) {
-  .work-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-}
-
-@media (min-width: 768px) {
-  .project-category {
-    display: block !important;
-  }
-}
-
-/* ============================================
-   ANIMATIONS & EFFECTS
-   ============================================ */
-@keyframes scrollLine {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(200%); }
-}
-
-.animate-scroll-line {
-  animation: scrollLine 1.8s ease-in-out infinite;
-}
-
-.word-wrapper {
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  display: inline-block;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.word {
-  display: inline-block;
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  padding: 12px 18px;
+  background: var(--espresso);
+  color: var(--cream);
+  font-weight: 700;
+  transform: translateY(-160%);
+  transition: transform 0.3s var(--ease-out);
+}
+.skip-link:focus-visible {
+  transform: none;
 }
 
-/* ============================================
-   HIDE CUSTOM CURSOR ON TOUCH DEVICES
-   ============================================ */
-@media (hover: none) and (pointer: coarse) {
-  body {
-    cursor: auto;
-  }
+/* ── Type ──────────────────────────────────────────────────────────────
+ * Fraunces, light and tight, in sentence case; italics do the emphasis.
+ */
+.display,
+.h2,
+.h3 {
+  font-family: var(--font-display);
+  font-weight: 340;
+  letter-spacing: -0.025em;
+  font-optical-sizing: auto;
+  font-variation-settings: 'SOFT' 50;
+  text-wrap: balance;
+}
+.display em,
+.h2 em,
+.h3 em {
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.03em;
 }
 
-/* ============================================
-   MOBILE RESPONSIVENESS PASS
-   ============================================ */
-
-/* Work section */
-@media (max-width: 900px) {
-  .accordion-row {
-    flex-direction: column;
-    align-items: stretch !important;
-  }
-
-  .accordion-track {
-    width: 100%;
-    overflow-x: auto;
-  }
+.display {
+  font-size: clamp(3.25rem, 12.5vw, 11rem);
+  line-height: 0.9;
 }
 
-/* Contact section */
-@media (max-width: 768px) {
-  .contact-section-padding {
-    padding: 100px 24px 40px 24px !important;
-  }
+.h2 {
+  font-size: clamp(2.375rem, 6vw, 5.25rem);
+  line-height: 0.98;
 }
 
-@media (max-width: 480px) {
-  .contact-section-padding {
-    padding: 80px 16px 32px 16px !important;
-  }
+.h3 {
+  font-size: clamp(1.625rem, 2.6vw, 2.375rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
-/* ============================================
-   HERO — Layered cinematic hero
-   ============================================ */
-@media (max-width: 1024px) {
-  .hero-content-padding {
-    padding: 0 48px 80px 48px !important;
-  }
-
-  .hero-social-rail {
-    display: none;
-  }
+.lead {
+  font-family: var(--font-display);
+  font-weight: 340;
+  font-variation-settings: 'SOFT' 50;
+  font-size: clamp(1.375rem, 2.3vw, 2.125rem);
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  max-width: 26em;
+  text-wrap: pretty;
 }
 
-@media (max-width: 640px) {
-  .hero-content-padding {
-    padding: 0 24px 70px 24px !important;
-  }
-
-  .hero-scroll-indicator {
-    bottom: 20px !important;
-  }
+.body {
+  color: var(--fg-dim);
+  max-width: 34em;
+  text-wrap: pretty;
 }
 
-/* Prevent horizontal scroll from oversized elements anywhere */
-html, body {
-  max-width: 100vw;
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.eyebrow__num {
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+.eyebrow__rule {
+  width: 32px;
+  height: 1px;
+  background: var(--line-strong);
 }
 
-@media (max-width: 480px) {
-  .responsive-grid-4 {
-    gap: 24px !important;
-  }
+/* Masked line reveals: <span class="line"><span>Text</span></span> */
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.line > span {
+  display: block;
 }
 
-/* Hide standard cursor only on non-touch devices with fine pointer */
-@media (pointer: fine) {
-  body, a, button, input, textarea, select, [role="button"] {
-    cursor: none !important;
-  }
-}
-
-/* Our Story: stack mosaic below text, drop secondary images on mobile */
-@media (max-width: 900px) {
-  .story-grid {
-    grid-template-columns: 1fr !important;
-    gap: 48px !important;
-  }
-}
-
-@media (max-width: 640px) {
-  .mosaic-small {
-    display: none;
-  }
-}
-
-/* ============================================
-   RESERVATION SECTION
-   ============================================ */
-
-/* ── CTA buttons ── */
-.reserve-cta-primary,
-.reserve-cta-secondary {
+/* ── Buttons ───────────────────────────────────────────────────────── */
+.btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.25em;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 28px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding: 17px 36px;
-  border-radius: 2px;
-  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, transform 0.35s ease;
   white-space: nowrap;
-}
-
-.reserve-cta-primary {
-  color: #080808;
-  background: #c9a96e;
-  border: 1px solid #c9a96e;
-}
-
-.reserve-cta-primary:hover {
-  background: #ddbf8a;
-  border-color: #ddbf8a;
-  transform: translateY(-2px);
-}
-
-.reserve-cta-secondary {
-  color: #f0ede6;
-  background: transparent;
-  border: 1px solid rgba(240, 237, 230, 0.25);
-}
-
-.reserve-cta-secondary:hover {
-  border-color: #c9a96e;
-  color: #c9a96e;
-}
-
-/* ── Cinematic dining photograph ── */
-.reserve-image-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 5;
+  border-radius: 999px;
+  border: 1px solid transparent;
   overflow: hidden;
-  border-radius: 2px;
-  background: linear-gradient(135deg, #1a1611 0%, #0c0a08 100%);
+  isolation: isolate;
+  transition:
+    color 0.45s var(--ease-out),
+    border-color 0.45s var(--ease-out),
+    transform 0.4s var(--ease-out);
+}
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.45s var(--ease-out);
+}
+/* Fill wipes up from the bottom on hover. */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--fg);
+  transform: translateY(102%);
+  transition: transform 0.55s var(--ease-out);
 }
 
-.reserve-image-wrap > *:first-child {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 3;
+.btn--primary {
+  background: var(--red);
+  color: #fff;
+}
+.theme-ember .btn--primary {
+  background: var(--fg);
+  color: var(--red);
+}
+.theme-ember .btn--primary::before {
+  background: var(--espresso);
 }
 
-.reserve-photo {
+.btn--ghost {
+  border-color: var(--line-strong);
+  color: var(--fg);
+}
+
+@media (hover: hover) {
+  .btn:hover::before {
+    transform: translateY(0);
+  }
+  .btn--primary:hover,
+  .btn--ghost:hover {
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+  .theme-ember .btn--primary:hover {
+    color: var(--cream);
+  }
+  .btn:hover svg {
+    transform: translateX(3px);
+  }
+}
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Underlined text link with a sweeping rule */
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  min-height: 44px; /* comfortable touch target */
+}
+.link::after {
+  content: '';
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  height: 1px;
+  background: currentColor;
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out);
+}
+.link svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.45s var(--ease-out);
+}
+@media (hover: hover) {
+  .link:hover::after {
+    transform: scaleX(0);
+  }
+  .link:hover svg {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* ── Photography frames ────────────────────────────────────────────── */
+.frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+}
+.frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  transform: scale(1);
-  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reserve-image-wrap:hover .reserve-photo {
-  transform: scale(1.06);
+/* ── Scroll reveals ────────────────────────────────────────────────────
+ * Initial states only apply once the inline script in layout.tsx has
+ * confirmed motion is welcome (html.js-motion). If hydration never
+ * happens, the fallback animation shows everything after 3s.
+ */
+.js-motion [data-reveal='up'] {
+  opacity: 0;
+  transform: translateY(32px);
+}
+.js-motion [data-reveal='lines'] .line > span {
+  transform: translateY(110%);
+}
+.js-motion [data-reveal='image']:not(.is-revealed) {
+  clip-path: inset(100% 0 0 0);
+}
+.js-motion [data-reveal='image']:not(.is-revealed) img {
+  transform: scale(1.16);
 }
 
-.reserve-image-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px dashed rgba(240, 237, 230, 0.15);
-  text-align: center;
-  padding: 0 32px;
-  font-family: var(--font-dm-sans), sans-serif;
-  font-size: 10px;
-  line-height: 1.7;
-  letter-spacing: 0.08em;
-  color: rgba(240, 237, 230, 0.25);
+.js-motion:not(.motion-ready) [data-reveal='up'],
+.js-motion:not(.motion-ready) [data-reveal='lines'] .line > span,
+.js-motion:not(.motion-ready) [data-reveal='image'],
+.js-motion:not(.motion-ready) [data-reveal='image'] img {
+  animation: reveal-fallback 0.01s 3s forwards;
 }
-
-.reserve-image-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(8, 8, 8, 0.05) 0%, rgba(8, 8, 8, 0) 40%, rgba(8, 8, 8, 0.55) 100%);
-}
-
-/* ── Responsive: tablet ── */
-@media (max-width: 1024px) {
-  .reserve-grid {
-    gap: 56px !important;
+@keyframes reveal-fallback {
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0);
   }
 }
 
-/* ── Responsive: stack to single column ── */
-@media (max-width: 900px) {
-  .reserve-grid {
-    grid-template-columns: 1fr !important;
-    gap: 56px !important;
-    margin-bottom: 80px !important;
-  }
-
-  .reserve-image-wrap {
-    aspect-ratio: 4 / 3;
-  }
-}
-
-/* ── Responsive: mobile ── */
-@media (max-width: 640px) {
-  .reserve-benefits {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-
-  .reserve-cta-row {
-    flex-direction: column;
-    align-items: stretch !important;
-  }
-
-  .reserve-cta-primary,
-  .reserve-cta-secondary {
-    width: 100%;
-    padding: 16px 24px;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

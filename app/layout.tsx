@@ -1,50 +1,81 @@
 // app/layout.tsx
-import type { Metadata } from 'next'
-import { DM_Sans, Cormorant_Garamond } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { Fraunces, Manrope } from 'next/font/google'
 import './globals.css'
-import SmoothScroll from '@/components/layout/SmoothScroll'
-import CustomCursor from '@/components/ui/CustomCursor'
-import Navbar from '@/components/layout/Navbar'
-import SectionNav from '@/components/ui/SectionNav'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
+import MobileActionBar from '@/components/layout/MobileActionBar'
+import Motion from '@/components/layout/Motion'
+import StructuredData from '@/components/layout/StructuredData'
+import { MOTION_BOOT_SCRIPT } from '@/lib/motion'
+import { SITE, siteUrl } from '@/data/site'
 
-const dmSans = DM_Sans({
+// Variable Fraunces with its optical-size and softness axes: light, warm
+// and a little characterful at display sizes.
+const display = Fraunces({
   subsets: ['latin'],
-  variable: '--font-dm-sans',
+  variable: '--font-fraunces',
+  style: ['normal', 'italic'],
+  axes: ['opsz', 'SOFT'],
   display: 'swap',
 })
 
-const cormorant = Cormorant_Garamond({
+const body = Manrope({
   subsets: ['latin'],
-  variable: '--font-cormorant',
-  weight: ['300', '400', '500', '600'],
+  variable: '--font-manrope',
   display: 'swap',
 })
+
+const title = `${SITE.name} Nakuru | Sports Bar, Grill & Nightlife`
+const description =
+  'Space Next Door is a sports bar, grill and nightlife venue in the former Tuskys Building on the Nakuru–Nairobi Highway. Live sports, food, drinks, DJs and live music, open 24/7. Reserve on WhatsApp.'
 
 export const metadata: Metadata = {
-  // TODO (verify before launch): confirm final wording with the client once
-  // real hours, menu and photography are locked in.
-  title: 'Space Next Door — Sports Bar, Grill & Nightclub in Nakuru',
-  description:
-    'Space Next Door Nakuru — food, drinks, live music and nightlife under one roof in the former Tuskys building, Nakuru, Kenya.',
+  metadataBase: new URL(siteUrl()),
+  title: { default: title, template: `%s | ${SITE.name} Nakuru` },
+  description,
+  applicationName: SITE.name,
+  keywords: [
+    'Space Next Door',
+    'Nakuru nightlife',
+    'sports bar Nakuru',
+    'Nakuru club',
+    'bar and grill Nakuru',
+    'Nakuru–Nairobi Highway',
+  ],
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    locale: 'en_KE',
+    url: '/',
+    siteName: SITE.name,
+    title,
+    description,
+  },
+  twitter: { card: 'summary_large_image', title, description },
+  formatDetection: { telephone: false },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export const viewport: Viewport = {
+  themeColor: '#18120f',
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${dmSans.variable} ${cormorant.variable}`}
-    >
-      <body className="bg-noir-bg text-noir-text antialiased">
-        <SmoothScroll>
-          <CustomCursor />
-          <Navbar />
-          <SectionNav />
-          {children}
-        </SmoothScroll>
+    <html lang="en-KE" className={`${display.variable} ${body.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: MOTION_BOOT_SCRIPT }} />
+        <StructuredData />
+      </head>
+      <body className="theme-light">
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <Header />
+        {children}
+        <Footer />
+        <MobileActionBar />
+        <Motion />
       </body>
     </html>
   )

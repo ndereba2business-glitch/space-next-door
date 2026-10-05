@@ -1,0 +1,82 @@
+.grid {
+  display: grid;
+  gap: 56px;
+}
+
+.copy {
+  display: grid;
+  gap: 28px;
+  align-content: start;
+}
+
+/* Two photographs, the smaller one stepping over the larger */
+.media {
+  position: relative;
+  padding-bottom: 14%;
+  padding-left: 12%;
+}
+.tall {
+  aspect-ratio: 4 / 5;
+}
+.parallax {
+  position: absolute;
+  inset: -8% 0;
+}
+.parallax img {
+  object-fit: cover;
+}
+.small {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 46%;
+  aspect-ratio: 1;
+  outline: 10px solid var(--bg);
+}
+
+.facts {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+.facts > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 6px;
+  padding-block: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.facts dd {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-variation-settings: 'SOFT' 50;
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.facts dt {
+  font-size: 0.875rem;
+  color: var(--fg-dim);
+}
+
+@media (min-width: 768px) {
+  .facts {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 40px;
+  }
+  .facts > div {
+    border-bottom: 0;
+    padding-block: 28px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 6fr 5fr;
+    column-gap: clamp(48px, 8vw, 128px);
+    row-gap: clamp(64px, 8vw, 112px);
+    align-items: center;
+  }
+  .facts {
+    grid-column: 1 / -1;
+  }
+}

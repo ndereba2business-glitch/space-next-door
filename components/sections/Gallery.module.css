@@ -1,0 +1,232 @@
+.head {
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+
+/* Phones: one lead tile, then three pairs */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.tile:nth-child(1) {
+  grid-column: span 2;
+}
+.tile .button {
+  aspect-ratio: 4 / 5;
+}
+
+.button {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+}
+.button img {
+  transition:
+    transform 1.4s var(--ease-out),
+    filter 0.8s ease;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  gap: 10px;
+  padding: 48px 16px 14px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: left;
+  color: #fff8f0;
+  background: linear-gradient(to top, rgba(24, 18, 15, 0.85), transparent);
+}
+.caption span {
+  color: var(--red-bright);
+}
+
+@media (hover: hover) {
+  .caption {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.5s ease,
+      transform 0.6s var(--ease-out);
+  }
+  .button:hover .caption,
+  .button:focus-visible .caption {
+    opacity: 1;
+    transform: none;
+  }
+  .button:hover img {
+    transform: scale(1.05);
+  }
+  .grid:has(.button:hover) .button:not(:hover) img {
+    filter: saturate(0.55) brightness(0.9);
+  }
+}
+
+/* Desktop: an editorial arrangement, no two neighbours the same shape */
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(3, clamp(220px, 23vw, 380px));
+    grid-template-areas:
+      'a a a a a b b b b b b b'
+      'a a a a a c c c d d d d'
+      'e e e e f f f f f g g g';
+    gap: 12px;
+  }
+  .tile:nth-child(1) {
+    grid-area: a;
+  }
+  .tile:nth-child(2) {
+    grid-area: b;
+  }
+  .tile:nth-child(3) {
+    grid-area: c;
+  }
+  .tile:nth-child(4) {
+    grid-area: d;
+  }
+  .tile:nth-child(5) {
+    grid-area: e;
+  }
+  .tile:nth-child(6) {
+    grid-area: f;
+  }
+  .tile:nth-child(7) {
+    grid-area: g;
+  }
+  .tile .button {
+    aspect-ratio: auto;
+  }
+}
+
+/* ── Instagram line ── */
+.insta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: clamp(28px, 4vw, 48px);
+  padding-block: 22px;
+  border-block: 1px solid var(--line);
+  transition: color 0.4s ease;
+}
+.insta:hover {
+  color: var(--accent-text);
+}
+.instaText {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 18px;
+  min-width: 0;
+}
+.instaLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.instaHandle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 320;
+  font-size: clamp(1.5rem, 3.4vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+.instaArrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: transform 0.5s var(--ease-out);
+}
+.insta:hover .instaArrow {
+  transform: translate(4px, -4px);
+}
+
+/* ── Lightbox ── */
+.dialog {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(18, 13, 11, 0.97);
+  color: var(--fg);
+  overscroll-behavior: contain;
+}
+.dialog::backdrop {
+  background: rgba(18, 13, 11, 0.9);
+}
+.dialog[open] {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  animation: fadeIn 0.4s var(--ease-out);
+}
+
+.viewer {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 0;
+  padding: calc(16px + env(safe-area-inset-top)) 16px 0;
+  pointer-events: none;
+}
+.viewerImg {
+  position: relative;
+  min-height: 0;
+}
+.viewerImg img {
+  object-fit: contain;
+  animation: fadeIn 0.5s var(--ease-out);
+}
+.viewerCaption {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  padding-top: 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.viewerCaption span {
+  color: var(--accent-text);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
+}
+.controls button {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+.controls button:hover {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}

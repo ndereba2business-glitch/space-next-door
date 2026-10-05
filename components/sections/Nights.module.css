@@ -1,0 +1,154 @@
+/* Follows The Space on the same dark ground, so only the bottom padding
+   and a hairline separate them. */
+.section {
+  padding-top: 0;
+}
+.section > :global(.container) {
+  padding-top: clamp(64px, 8vw, 112px);
+  border-top: 1px solid var(--line);
+}
+
+.top {
+  display: grid;
+  gap: 28px;
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+
+.list {
+  border-top: 1px solid var(--line);
+}
+.list > li {
+  border-bottom: 1px solid var(--line);
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'day go'
+    'name go'
+    'detail detail';
+  gap: 6px 16px;
+  padding-block: 26px;
+}
+
+.day {
+  grid-area: day;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.name {
+  grid-area: name;
+  font-family: var(--font-display);
+  font-weight: 320;
+  font-variation-settings: 'SOFT' 50;
+  font-size: clamp(2rem, 5.2vw, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  transition:
+    color 0.4s ease,
+    transform 0.7s var(--ease-out);
+}
+
+.detail {
+  grid-area: detail;
+  margin-top: 6px;
+  color: var(--fg-dim);
+  max-width: 34em;
+}
+
+.go {
+  grid-area: go;
+  align-self: center;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    transform 0.5s var(--ease-out);
+}
+
+.preview {
+  display: none;
+}
+
+.note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  margin-top: 28px;
+  color: var(--fg-dim);
+}
+.note a {
+  color: var(--fg);
+}
+
+@media (min-width: 768px) {
+  .top {
+    grid-template-columns: 1fr minmax(0, 24em);
+    align-items: end;
+  }
+}
+
+@media (min-width: 1024px) {
+  .row {
+    grid-template-columns: 9rem 1fr minmax(0, 20rem) auto;
+    grid-template-areas: 'day name detail go';
+    align-items: center;
+    gap: 32px;
+    padding-block: 34px;
+  }
+  .detail {
+    margin-top: 0;
+  }
+
+  /* Photo opens beside the hovered row */
+  .preview {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    right: calc(20rem + 132px);
+    width: 200px;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    pointer-events: none;
+    clip-path: inset(50% 50% 50% 50%);
+    transform: translateY(-50%) rotate(-3deg);
+    transition:
+      clip-path 0.7s var(--ease-out),
+      transform 0.7s var(--ease-out);
+  }
+  .preview img {
+    object-fit: cover;
+  }
+}
+
+@media (hover: hover) {
+  .row:hover .name {
+    font-style: italic;
+    transform: translateX(10px);
+  }
+  .row:hover .go {
+    background: var(--red);
+    border-color: var(--red);
+    transform: rotate(45deg);
+  }
+  .row:hover .preview {
+    clip-path: inset(0 0 0 0);
+    transform: translateY(-50%) rotate(2deg);
+  }
+}
+.row:focus-visible .name {
+  font-style: italic;
+}

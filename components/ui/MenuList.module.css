@@ -1,0 +1,50 @@
+.list {
+  display: grid;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding-block: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.item:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-variation-settings: 'SOFT' 50;
+  font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.leader {
+  min-width: 16px;
+  border-bottom: 1px dotted var(--line-strong);
+  transform: translateY(-5px);
+}
+
+.price {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.currency {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--fg-dim);
+}
+
+.desc {
+  grid-column: 1 / -1;
+  font-size: 0.9375rem;
+  color: var(--fg-dim);
+  max-width: 34em;
+}
