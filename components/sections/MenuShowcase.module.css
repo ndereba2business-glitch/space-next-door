@@ -1,0 +1,137 @@
+.section {
+  --bg: var(--bone);
+  --surface: var(--cream);
+  background: var(--bg);
+}
+
+.grid {
+  display: grid;
+  gap: 48px;
+}
+
+/* ── Photograph: all three stacked, the active one fades up ── */
+.media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--sand);
+}
+.photo {
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 1.4s var(--ease-out);
+}
+.photo[data-active='true'] {
+  opacity: 1;
+  transform: none;
+}
+.count {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  z-index: 1;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(255, 248, 240, 0.8);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+}
+.count span {
+  color: #fff;
+}
+
+.body {
+  display: grid;
+  gap: 32px;
+  align-content: start;
+  min-width: 0;
+}
+
+/* ── Category tabs ── */
+.tabs {
+  display: flex;
+  gap: clamp(24px, 4vw, 44px);
+  border-bottom: 1px solid var(--line);
+}
+.tab {
+  position: relative;
+  min-height: 48px;
+  padding: 0 2px 14px;
+  font-family: var(--font-display);
+  font-weight: 340;
+  font-variation-settings: 'SOFT' 50;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  letter-spacing: -0.02em;
+  color: rgba(28, 21, 18, 0.58); /* 4.3:1 on bone: fine at this size */
+  transition: color 0.4s ease;
+}
+.tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+.tab:hover {
+  color: var(--fg-dim);
+}
+.tab[aria-selected='true'] {
+  color: var(--fg);
+  font-style: italic;
+}
+.tab[aria-selected='true']::after {
+  transform: scaleX(1);
+}
+
+.panel {
+  display: grid;
+  gap: 20px;
+  animation: panelIn 0.6s var(--ease-out);
+}
+.panel[hidden] {
+  display: none;
+}
+.blurb {
+  color: var(--fg-dim);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 5fr 6fr;
+    gap: clamp(48px, 7vw, 112px);
+    align-items: start;
+  }
+  .media {
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+    aspect-ratio: 4 / 5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
+}
