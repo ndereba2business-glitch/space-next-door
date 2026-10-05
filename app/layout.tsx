@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from 'next'
-import { Big_Shoulders, Manrope } from 'next/font/google'
+import { Fraunces, Manrope } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
@@ -10,13 +10,14 @@ import StructuredData from '@/components/layout/StructuredData'
 import { MOTION_BOOT_SCRIPT } from '@/lib/motion'
 import { SITE, siteUrl } from '@/data/site'
 
-const display = Big_Shoulders({
+// Variable Fraunces with its optical-size and softness axes: light, warm
+// and a little characterful at display sizes.
+const display = Fraunces({
   subsets: ['latin'],
-  variable: '--font-big-shoulders',
-  weight: ['700', '800'],
+  variable: '--font-fraunces',
+  style: ['normal', 'italic'],
+  axes: ['opsz', 'SOFT'],
   display: 'swap',
-  // Next has no metrics for this family; the CSS stack falls back to Arial Narrow.
-  adjustFontFallback: false,
 })
 
 const body = Manrope({
@@ -56,8 +57,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0b0809',
-  colorScheme: 'dark',
+  themeColor: '#18120f',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -67,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: MOTION_BOOT_SCRIPT }} />
         <StructuredData />
       </head>
-      <body>
+      <body className="theme-light">
         <a className="skip-link" href="#main">
           Skip to content
         </a>
