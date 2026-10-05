@@ -7,8 +7,11 @@
 //
 //   { name: 'Dish name', description: 'Optional one-liner', price: 950 }
 //
-// Sections with no items are hidden; if every section is empty the Menu
-// section falls back to a "get today's menu on WhatsApp" state.
+// The homepage shows the first HOME_ITEMS dishes of each section as its
+// signatures; the full list lives at /menu. Section photos are DEMO
+// stand-ins too (see data/photos.ts).
+
+import { DEMO, type Photo } from './photos'
 
 export type MenuItem = {
   name: string
@@ -18,15 +21,22 @@ export type MenuItem = {
 
 export type MenuSection = {
   id: string
+  /** Short label for the category tabs */
+  tab: string
   title: string
   blurb: string
+  photo: Photo
   items: MenuItem[]
 }
+
+export const HOME_ITEMS = 4
 
 export const MENU: MenuSection[] = [
   {
     id: 'grill',
-    title: 'From the Grill',
+    tab: 'Grill',
+    title: 'From the grill',
+    photo: DEMO.grillCounter,
     blurb: 'Hot off the grill, for match days and long nights.',
     items: [
       {
@@ -63,7 +73,9 @@ export const MENU: MenuSection[] = [
   },
   {
     id: 'kitchen',
-    title: 'Kitchen',
+    tab: 'Kitchen',
+    title: 'From the kitchen',
+    photo: DEMO.wings,
     blurb: 'Plates to share, and plates you won’t.',
     items: [
       {
@@ -100,7 +112,9 @@ export const MENU: MenuSection[] = [
   },
   {
     id: 'bar',
-    title: 'Bar',
+    tab: 'Bar',
+    title: 'From the bar',
+    photo: DEMO.cocktail,
     blurb: 'Cocktails, cold beer and bottles.',
     items: [
       {
