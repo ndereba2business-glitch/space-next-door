@@ -8,7 +8,7 @@ export default function NotFound() {
   return (
     <main
       id="main"
-      className="container"
+      className="container theme-light"
       style={{ minHeight: '80svh', display: 'grid', alignContent: 'center', gap: 24, paddingTop: 120 }}
     >
       <p className="eyebrow">
@@ -17,9 +17,9 @@ export default function NotFound() {
         Wrong door
       </p>
       <h1 className="h2">
-        This isn’t the <span className="accent">space.</span>
+        This isn’t <em>the space.</em>
       </h1>
-      <p className="lead">The page you’re looking for doesn’t exist, but the night’s still on.</p>
+      <p className="body">The page you’re looking for doesn’t exist, but the night’s still on.</p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
         <Link href="/" className="btn btn--primary">
           Back to the homepage
