@@ -47,11 +47,11 @@ export default function Menu() {
                     <li key={item.name}>
                       <span className={styles.itemName}>{item.name}</span>
                       <span className={styles.leader} aria-hidden="true" />
-                      {item.price != null && (
-                        <span className={styles.price}>
-                          {MENU_CURRENCY} {item.price.toLocaleString('en-KE')}
-                        </span>
-                      )}
+                      <span className={styles.price}>
+                        {item.price != null
+                          ? `${MENU_CURRENCY} ${item.price.toLocaleString('en-KE')}`
+                          : 'On request'}
+                      </span>
                       {item.description && <span className={styles.desc}>{item.description}</span>}
                     </li>
                   ))}
