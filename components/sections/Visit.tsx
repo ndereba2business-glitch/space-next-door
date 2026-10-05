@@ -1,37 +1,37 @@
 // components/sections/Visit.tsx
+//
+// Everything needed to actually get here: address, hours by area, the
+// bookings line, a map, and the birthday offer.
+
 import SectionHead from '@/components/ui/SectionHead'
 import { LINKS, SITE } from '@/data/site'
-import {
-  IconArrowUpRight,
-  IconCake,
-  IconClock,
-  IconMapPin,
-  IconPhone,
-  IconWhatsapp,
-} from '@/components/ui/icons'
+import { IconArrowUpRight, IconCake, IconMapPin, IconPhone, IconWhatsapp } from '@/components/ui/icons'
 import styles from './Visit.module.css'
 
 export default function Visit() {
   return (
-    <section id="visit" className="section" aria-labelledby="visit-title" tabIndex={-1}>
+    <section
+      id="visit"
+      className={`section theme-light ${styles.section}`}
+      aria-labelledby="visit-title"
+      tabIndex={-1}
+    >
       <div className={`container ${styles.grid}`}>
         <div className={styles.info}>
           <SectionHead
-            num="06"
+            num="07"
             label="Visit"
             id="visit-title"
             lines={[
               <>
-                Find <span className="accent">us.</span>
+                Find <em>us.</em>
               </>,
             ]}
           />
 
           <dl className={styles.details}>
             <div data-reveal="up">
-              <dt>
-                <IconMapPin /> Address
-              </dt>
+              <dt>Address</dt>
               <dd>
                 <address>
                   {SITE.address.line1}
@@ -46,11 +46,8 @@ export default function Visit() {
               </dd>
             </div>
             <div data-reveal="up">
-              <dt>
-                <IconClock /> Hours
-              </dt>
+              <dt>Hours</dt>
               <dd>
-                {SITE.hours.summary}
                 <ul className={styles.hours}>
                   {SITE.hours.detail.map((row) => (
                     <li key={row.area}>
@@ -63,9 +60,7 @@ export default function Visit() {
               </dd>
             </div>
             <div data-reveal="up">
-              <dt>
-                <IconPhone /> Bookings
-              </dt>
+              <dt>Bookings</dt>
               <dd>
                 <a href={LINKS.call} className={styles.phone}>
                   {SITE.phone.display}
@@ -109,7 +104,7 @@ export default function Visit() {
           </div>
 
           <aside className={styles.birthday} data-reveal="up" aria-labelledby="birthday-title">
-            <IconCake width={32} height={32} className={styles.cake} />
+            <IconCake width={28} height={28} className={styles.cake} />
             <div>
               <h3 id="birthday-title" className={styles.birthdayTitle}>
                 Birthdays at Space
