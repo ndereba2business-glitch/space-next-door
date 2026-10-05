@@ -3,6 +3,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { NAV } from '@/data/nav'
 import { LINKS, SITE } from '@/data/site'
 import { getLenis } from '@/lib/motion'
@@ -10,12 +11,19 @@ import { IconArrowUpRight, IconInstagram, IconTiktok, IconFacebook, IconWhatsapp
 import styles from './Header.module.css'
 
 export default function Header() {
+  const home = usePathname() === '/'
   const [open, setOpen] = useState(false)
-  const [solid, setSolid] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [active, setActive] = useState<string | null>(null)
   const toggleRef = useRef<HTMLButtonElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
+  const navigating = useRef(false)
+
+  // Only the homepage has a dark hero to sit over; everywhere else the bar
+  // starts in its solid, light state.
+  const solid = scrolled || !home
+  const href = (id: string) => (home ? `#${id}` : `/#${id}`)
 
   // Solid after leaving the top; tuck away while scrolling down.
   useEffect(() => {
@@ -24,7 +32,7 @@ export default function Header() {
     const update = () => {
       frame = 0
       const y = window.scrollY
-      setSolid(y > 24)
+      setScrolled(y > 24)
       setHidden(y > 480 && y > last + 2)
       if (y < last - 2 || y <= 480) setHidden(false)
       last = y
@@ -42,30 +50,30 @@ export default function Header() {
 
   // Highlight the section currently in the middle of the viewport.
   useEffect(() => {
+    if (!home) return
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id)
       },
       { rootMargin: '-45% 0px -50% 0px' },
     )
-    for (const item of NAV) {
-      const el = document.getElementById(item.id)
+    for (const id of ['top', ...NAV.map((n) => n.id)]) {
+      const el = document.getElementById(id)
       if (el) observer.observe(el)
     }
-    const hero = document.getElementById('top')
-    if (hero) observer.observe(hero)
     return () => observer.disconnect()
-  }, [])
+  }, [home])
 
   const close = useCallback(() => setOpen(false), [])
-  const navigating = useRef(false)
 
   // Links inside the open menu: close first (page scroll is paused while
-  // open), then scroll once the page is interactive again.
+  // open), then scroll once the page is interactive again. Off the
+  // homepage the link simply navigates.
   const goTo = (id: string) => (e: React.MouseEvent) => {
-    e.preventDefault()
     navigating.current = true
     setOpen(false)
+    if (!home) return
+    e.preventDefault()
     requestAnimationFrame(() => {
       const target = document.getElementById(id)
       if (!target) return
@@ -104,7 +112,7 @@ export default function Header() {
 
   const state = [
     styles.header,
-    solid && styles.solid,
+    (solid || open) && styles.solid,
     hidden && !open && styles.hidden,
     open && styles.open,
   ]
@@ -114,9 +122,15 @@ export default function Header() {
   return (
     <header id="site-header" className={state}>
       <div className={`container ${styles.bar}`}>
-        <a href="#top" className={styles.logo} aria-label={`${SITE.name}, back to top`} onClick={close}>
-          {/* Light version: the red mark disappears against the red neon photography */}
+        <a
+          href={home ? '#top' : '/'}
+          className={styles.logo}
+          aria-label={`${SITE.name}, ${home ? 'back to top' : 'home'}`}
+          onClick={close}
+        >
+          {/* Light mark over the hero photo, the venue's red on paper */}
           <Image src="/brand/logo-light.png" alt="" width={538} height={344} preload sizes="96px" />
+          <Image src="/brand/logo-red.png" alt="" width={538} height={344} sizes="96px" />
         </a>
 
         <nav className={styles.nav} aria-label="Primary">
@@ -124,7 +138,7 @@ export default function Header() {
             {NAV.map((item) => (
               <li key={item.id}>
                 <a
-                  href={`#${item.id}`}
+                  href={href(item.id)}
                   className={styles.navLink}
                   aria-current={active === item.id ? 'true' : undefined}
                 >
@@ -172,7 +186,7 @@ export default function Header() {
           <ol className={styles.panelList}>
             {NAV.map((item, i) => (
               <li key={item.id} style={{ '--i': i } as React.CSSProperties}>
-                <a href={`#${item.id}`} onClick={goTo(item.id)}>
+                <a href={href(item.id)} onClick={goTo(item.id)}>
                   <span className={styles.panelNum}>{String(i + 1).padStart(2, '0')}</span>
                   {item.label}
                 </a>
@@ -185,11 +199,12 @@ export default function Header() {
             <IconWhatsapp />
             Reserve on WhatsApp
           </a>
-          <a href={LINKS.call} className="btn btn--ghost">
-            Call {SITE.phone.display}
+          <a href={LINKS.order} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
+            Order via WhatsApp
           </a>
           <p className={styles.panelMeta}>
-            {SITE.address.line1}, {SITE.address.city} · {SITE.hours.short}
+            {SITE.address.line1}, {SITE.address.city} · {SITE.hours.short} ·{' '}
+            <a href={LINKS.call}>{SITE.phone.display}</a>
           </p>
           <div className={styles.panelSocial}>
             <a href={SITE.social.instagram.url} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
