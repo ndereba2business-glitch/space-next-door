@@ -65,6 +65,7 @@
   font-size: clamp(2.25rem, 5vw, 3.25rem);
   line-height: 1;
   letter-spacing: -0.03em;
+  padding-block: 4px; /* 44px touch target on phones */
   transition: color 0.3s ease;
 }
 .phone:hover {
