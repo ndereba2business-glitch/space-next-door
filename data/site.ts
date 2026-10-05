@@ -34,6 +34,7 @@ export const SITE = {
     number: PHONE_E164.slice(1),
     reserveMessage: "Hi Space Next Door, I'd like to reserve a table.",
     menuMessage: "Hi Space Next Door, could you send me today's menu?",
+    groupMessage: "Hi Space Next Door, I'd like to plan a group order. Date: , Guests: ",
     birthdayMessage:
       "Hi Space Next Door, I'd like to book a birthday celebration. Date: , Guests: ",
   },
@@ -90,6 +91,7 @@ export const SITE = {
 export const LINKS = {
   reserve: whatsappUrl(SITE.whatsapp.reserveMessage),
   menu: whatsappUrl(SITE.whatsapp.menuMessage),
+  group: whatsappUrl(SITE.whatsapp.groupMessage),
   birthday: whatsappUrl(SITE.whatsapp.birthdayMessage),
   call: SITE.phone.tel,
   directions: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(SITE.mapsQuery)}`,

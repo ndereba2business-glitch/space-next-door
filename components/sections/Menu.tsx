@@ -73,7 +73,12 @@ export default function Menu() {
             </p>
           </div>
           <div className={styles.requestCtas}>
-            <a href={LINKS.menu} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
+            <a
+              href={hasItems ? LINKS.group : LINKS.menu}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--primary"
+            >
               <IconWhatsapp />
               {hasItems ? 'Message us' : 'Get the menu'}
               <span className="sr-only"> on WhatsApp (opens in a new tab)</span>
