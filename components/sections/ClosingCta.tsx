@@ -3,18 +3,31 @@
 // "Take me to Space" is the venue's own hashtag (#takemetospace).
 
 import Image from 'next/image'
-import { PHOTOS } from '@/data/venue'
+import { DEMO } from '@/data/photos'
 import { LINKS } from '@/data/site'
 import { IconArrowUpRight, IconPhone, IconWhatsapp } from '@/components/ui/icons'
 import styles from './ClosingCta.module.css'
 
 export default function ClosingCta() {
+  const photo = DEMO.openGrill
+
   return (
-    <section id="reserve" className={styles.section} aria-labelledby="reserve-title" tabIndex={-1}>
-      <div className={`${styles.bg} grain`} aria-hidden="true">
-        <div className={styles.bgInner} data-speed="0.2">
-          {/* Heavily blurred and darkened, so a smaller rendition is plenty */}
-          <Image src={PHOTOS.mainHall.src} alt="" fill sizes="50vw" placeholder="blur" />
+    <section
+      id="reserve"
+      className={`theme-dark ${styles.section}`}
+      aria-labelledby="reserve-title"
+      tabIndex={-1}
+    >
+      <div className={styles.bg} aria-hidden="true">
+        <div className={styles.bgInner} data-speed="0.16">
+          <Image
+            src={photo.src}
+            alt=""
+            fill
+            sizes="100vw"
+            placeholder="blur"
+            style={{ objectPosition: photo.focus }}
+          />
         </div>
       </div>
 
@@ -30,11 +43,11 @@ export default function ClosingCta() {
           </span>{' '}
           <span className="line">
             <span>
-              to Space<span className="accent">.</span>
+              <em>to Space.</em>
             </span>
           </span>
         </h2>
-        <p className="lead" data-reveal="up">
+        <p className={styles.lead} data-reveal="up">
           Message us with the night and the number of guests and we’ll hold a table for you.
         </p>
         <div className={styles.ctas} data-reveal="up">
