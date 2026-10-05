@@ -1,19 +1,26 @@
 // components/layout/Footer.tsx
 import Image from 'next/image'
+import Link from 'next/link'
 import { NAV } from '@/data/nav'
 import { LINKS, SITE } from '@/data/site'
-import { IconFacebook, IconInstagram, IconTiktok } from '@/components/ui/icons'
+import { IconFacebook, IconInstagram, IconTiktok, IconWhatsapp } from '@/components/ui/icons'
 import styles from './Footer.module.css'
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
-      <div className={`container ${styles.grid}`}>
+    <footer className={`theme-dark ${styles.footer}`}>
+      <div className={`container ${styles.top}`}>
         <div className={styles.brand}>
-          <Image src="/brand/logo-red.png" alt={SITE.name} width={538} height={344} sizes="180px" />
-          <p>{SITE.tagline}.</p>
+          <Image src="/brand/logo-light.png" alt={SITE.name} width={538} height={344} sizes="150px" />
+          <p>The space to be.</p>
         </div>
+        <a href={LINKS.reserve} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
+          <IconWhatsapp />
+          Reserve a table
+        </a>
+      </div>
 
+      <div className={`container ${styles.grid}`}>
         <div>
           <h2 className={styles.heading}>Visit</h2>
           <address className={styles.text}>
@@ -34,21 +41,26 @@ export default function Footer() {
           <a href={LINKS.call} className={styles.inline}>
             {SITE.phone.display}
           </a>
-          <a href={LINKS.reserve} target="_blank" rel="noopener noreferrer" className={styles.inline}>
-            WhatsApp us
+          <a href={LINKS.order} target="_blank" rel="noopener noreferrer" className={styles.inline}>
+            Order on WhatsApp
           </a>
         </div>
 
         <div>
           <h2 className={styles.heading}>Explore</h2>
-          <ul className={styles.list}>
+          <ul>
             {NAV.map((item) => (
               <li key={item.id}>
-                <a href={`#${item.id}`} className={styles.inline}>
+                <a href={`/#${item.id}`} className={styles.inline}>
                   {item.label}
                 </a>
               </li>
             ))}
+            <li>
+              <Link href="/menu" className={styles.inline}>
+                Full menu
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -82,7 +94,7 @@ export default function Footer() {
           © {new Date().getFullYear()} {SITE.legalName}, {SITE.address.city}
         </p>
         <p>{SITE.responsibleDrinking}</p>
-        <p>Photography: {SITE.name}</p>
+        <Link href="/credits">Photo credits</Link>
       </div>
     </footer>
   )
