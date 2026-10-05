@@ -1,7 +1,8 @@
 // components/ui/SectionHead.tsx
 //
-// Numbered eyebrow + masked multi-line display heading, shared by every
-// section so the rhythm stays identical down the page.
+// Numbered label + masked multi-line serif heading, shared by every section
+// so the rhythm stays identical down the page. Use <em> inside a line for
+// the italic emphasis.
 
 import type { ReactNode } from 'react'
 
@@ -21,7 +22,7 @@ export default function SectionHead({ num, label, id, lines, className }: Props)
         <span className="eyebrow__rule" aria-hidden="true" />
         {label}
       </p>
-      <h2 id={id} className="h2" data-reveal="lines" style={{ marginTop: '24px' }}>
+      <h2 id={id} className="h2" data-reveal="lines" style={{ marginTop: '20px' }}>
         {lines.map((line, i) => (
           // Trailing space keeps "Line one. Line two." as separate words for
           // screen readers and search engines; the lines are display:block.
